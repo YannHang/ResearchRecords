@@ -1,0 +1,620 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Compact Laboratory Book
+% LaTeX Template
+% Version 1.0 (4/6/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Joan Queralt Gil (http://phobos.xtec.cat/jqueralt) using the labbook class by
+% Frank Kuster (http://www.ctan.org/tex-archive/macros/latex/contrib/labbook/)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Important note:
+% This template requires the labbook.cls file to be in the same directory as the
+% .tex file. The labbook.cls file provides the necessary structure to create the
+% lab book.
+%
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing lab book content.
+%
+% HOW TO USE THIS TEMPLATE 
+% Each day in the lab consists of three main things:
+%
+% 1. LABDAY: The first thing to put is the \labday{} command with a date in 
+% curly brackets, this will make a new section showing that you are working
+% on a new day.
+%
+% 2. EXPERIMENT/SUBEXPERIMENT: Next you need to specify what 
+% experiment(s) and subexperiment(s) you are working on with a 
+% \experiment{} and \subexperiment{} commands with the experiment 
+% shorthand in the curly brackets. The experiment shorthand is defined in the 
+% 'DEFINITION OF EXPERIMENTS' section below, this means you can 
+% say \experiment{pcr} and the actual text written to the PDF will be what 
+% you set the 'pcr' experiment to be. If the experiment is a one off, you can 
+% just write it in the bracket without creating a shorthand. Note: if you don't 
+% want to have an experiment, just leave this out and it won't be printed.
+%
+% 3. CONTENT: Following the experiment is the content, i.e. what progress 
+% you made on the experiment that day.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------                               
+\documentclass[fontsize=11pt, % Document font size
+                             paper=a4, % Document paper type
+                             twoside, % Shifts odd pages to the left for easier reading when printed, can be changed to oneside
+                             captions=tableheading,
+                             index=totoc,
+                             hyperref]{labbook}
+ 
+\usepackage[bottom=10em]{geometry} % Reduces the whitespace at the bottom of the page so more text can fit
+
+\usepackage[english]{babel} % English language
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\usepackage[utf8]{inputenc} % Uses the utf8 input encoding
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+
+\usepackage[osf]{mathpazo} % Palatino as the main font
+\linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
+\usepackage[scaled=.88]{beramono} % Bera-Monospace
+\usepackage[scaled=.86]{berasans} % Bera Sans-Serif
+
+\usepackage{booktabs,array} % Packages for tables
+
+\usepackage{amsmath} % For typesetting math
+\usepackage{graphicx} % Required for including images
+\usepackage{etoolbox}
+\usepackage[norule]{footmisc} % Removes the horizontal rule from footnotes
+\usepackage{lastpage} % Counts the number of pages of the document
+
+\usepackage[dvipsnames]{xcolor}  % Allows the definition of hex colors
+\definecolor{titleblue}{rgb}{0.16,0.24,0.64} % Custom color for the title on the title page
+\definecolor{linkcolor}{rgb}{0,0,0.42} % Custom color for links - dark blue at the moment
+
+\addtokomafont{title}{\Huge\color{titleblue}} % Titles in custom blue color
+\addtokomafont{chapter}{\color{OliveGreen}} % Lab dates in olive green
+\addtokomafont{section}{\color{Sepia}} % Sections in sepia
+\addtokomafont{pagehead}{\normalfont\sffamily\color{gray}} % Header text in gray and sans serif
+\addtokomafont{caption}{\footnotesize\itshape} % Small italic font size for captions
+\addtokomafont{captionlabel}{\upshape\bfseries} % Bold for caption labels
+\addtokomafont{descriptionlabel}{\rmfamily}
+\setcapwidth[r]{10cm} % Right align caption text
+\setkomafont{footnote}{\sffamily} % Footnotes in sans serif
+
+\deffootnote[4cm]{4cm}{1em}{\textsuperscript{\thefootnotemark}} % Indent footnotes to line up with text
+
+\DeclareFixedFont{\textcap}{T1}{phv}{bx}{n}{1.5cm} % Font for main title: Helvetica 1.5 cm
+\DeclareFixedFont{\textaut}{T1}{phv}{bx}{n}{0.8cm} % Font for author name: Helvetica 0.8 cm
+
+\usepackage[nouppercase,headsepline]{scrpage2} % Provides headers and footers configuration
+\pagestyle{scrheadings} % Print the headers and footers on all pages
+\clearscrheadfoot % Clean old definitions if they exist
+
+\automark[chapter]{chapter}
+\ohead{\headmark} % Prints outer header
+
+\setlength{\headheight}{25pt} % Makes the header take up a bit of extra space for aesthetics
+\setheadsepline{.4pt} % Creates a thin rule under the header
+\addtokomafont{headsepline}{\color{lightgray}} % Colors the rule under the header light gray
+
+\ofoot[\normalfont\normalcolor{\thepage\ |\  \pageref{LastPage}}]{\normalfont\normalcolor{\thepage\ |\  \pageref{LastPage}}} % Creates an outer footer of: "current page | total pages"
+
+% These lines make it so each new lab day directly follows the previous one i.e. does not start on a new page - comment them out to separate lab days on new pages
+\makeatletter
+\patchcmd{\addchap}{\if@openright\cleardoublepage\else\clearpage\fi}{\par}{}{}
+\makeatother
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+% These lines make it so every figure and equation in the document is numbered consecutively rather than restarting at 1 for each lab day - comment them out to remove this behavior
+\usepackage{chngcntr}
+\counterwithout{figure}{labday}
+\counterwithout{equation}{labday}
+
+% Hyperlink configuration
+\usepackage[
+    pdfauthor={}, % Your name for the author field in the PDF
+    pdftitle={Laboratory Journal}, % PDF title
+    pdfsubject={}, % PDF subject
+    bookmarksopen=true,
+    linktocpage=true,
+    urlcolor=linkcolor, % Color of URLs
+    citecolor=linkcolor, % Color of citations
+    linkcolor=linkcolor, % Color of links to other pages/figures
+    backref=page,
+    pdfpagelabels=true,
+    plainpages=false,
+    colorlinks=true, % Turn off all coloring by changing this to false
+    bookmarks=true,
+    pdfview=FitB]{hyperref}
+
+\usepackage[stretch=10]{microtype} % Slightly tweak font spacing for aesthetics
+
+%\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\input{header_PhyWork_Pure.tex}% external physics command support
+
+%----------------------------------------------------------------------------------------
+%	DEFINITION OF EXPERIMENTS
+%----------------------------------------------------------------------------------------
+
+% Template: \newexperiment{<abbrev>}[<short form>]{<long form>}
+% <abbrev> is the reference to use later in the .tex file in \experiment{}, the <short form> is only used in the table of contents and running title - it is optional, <long form> is what is printed in the lab book itself
+
+\newexperiment{example}[Example experiment]{This is an example experiment}
+\newexperiment{example2}[Example experiment 2]{This is another example experiment}
+\newexperiment{example3}[Example experiment 3]{This is yet another example experiment}
+
+\newsubexperiment{subexp_example}[Example sub-experiment]{This is an example sub-experiment}
+\newsubexperiment{subexp_example2}[Example sub-experiment 2]{This is another example sub-experiment}
+\newsubexperiment{subexp_example3}[Example sub-experiment 3]{This is yet another example sub-experiment}
+
+% Paper List
+\newexperiment{Paper000000}[Dynamics of Bose-Einstein condensates in optical lattices]{Dynamics of Bose-Einstein condensates in optical lattices\cite{RevModPhys.78.179}}
+\newexperiment{Paper000001}[Intrinsic Dynamical Fluctuation Assisted Symmetry Breaking in Adiabatic Following]{Intrinsic Dynamical Fluctuation Assisted Symmetry Breaking in Adiabatic Following\cite{PhysRevLett.110.130402}}
+\newexperiment{Paper000002}[Nonlinear Evolution of Quantum States in the Adiabatic Regime]{Nonlinear Evolution of Quantum States in the Adiabatic Regime\cite{PhysRevLett.90.170404}}
+\newexperiment{Paper000003}[Berry phase in nonlinear systems]{Berry phase in nonlinear systems\cite{PhysRevA.81.052112}}
+\newexperiment{Paper000004}[Berry phases for the nonlocal Gross–Pitaevskii equation with a quadratic potential]{Berry phases for the nonlocal Gross–Pitaevskii equation with a quadratic potential\cite{0305-4470-39-5-012}}
+\newexperiment{Paper000005}[Weakly Nonlinear Time-Adiabatic Theory]{Weakly Nonlinear Time-Adiabatic Theory\cite{Sparber2016}}
+\newexperiment{Paper000006}[Theory of nonlinear Landau-Zener tunneling]{Theory of nonlinear Landau-Zener tunneling\cite{PhysRevA.66.023404}}
+\newexperiment{Paper000007}[Dynamical fluctuations in classical adiabatic processes: General description and their implications]{Dynamical fluctuations in classical adiabatic processes: General description and their implications\cite{Zhang20121202}}
+\newexperiment{Paper000008}[Beyond the geometric phase: intrinsic fluctuation-induced ‘pollutions’ for adiabatic evolution of a nonlinear quantum state]{Beyond the geometric phase: intrinsic fluctuation-induced ‘pollutions’ for adiabatic evolution of a nonlinear quantum state\cite{1751-8121-45-29-295302}}
+\newexperiment{Paper000009}[Foundations of Colloid Science - Robert J. Hunter]{Foundations of Colloid Science\cite{Hunter2001}}
+\newexperiment{Paper000010}[Electrophoretic mobility of a spherical colloidal particle]{Electrophoretic mobility of a spherical colloidal particle\cite{OBrienWhite1978}}
+\newexperiment{Paper000011}[The motion of charged colloidal particles in electric fields]{The motion of charged colloidal particles in electric fields\cite{Teubner1982}}
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{\textcap{Paper Comments \\[1cm]  
+\textaut{Beginning 11-07-2016}}}
+
+\author{
+    \textaut{Yuan Hang}\\ \\ % Your name
+}
+\date{} % No date by default, add \today if you wish to include the publication date
+
+\maketitle % Title page
+
+\printindex
+\tableofcontents % Table of contents
+\newpage % Start lab look on a new page
+
+\begin{addmargin}[4cm]{0cm} % Makes the text width much shorter for a compact look
+
+\pagestyle{scrheadings} % Begin using headers
+
+%----------------------------------------------------------------------------------------
+%	LAB BOOK CONTENTS
+%----------------------------------------------------------------------------------------
+\labday{Wednesday, 13 July 2016}
+\experiment{Paper000000}
+This review gives pedagogical introduction of Bose-Einstein condensates. It gives some overall background of BEC, especially the experiment realization. It mainly gives that how to realize periodic potential by optical lattice. The theory part starts from the linear case which is very common in condense matter physcis and discuss the beheavior of BEC governed by nonliear schrodinger equation. The techniques used for tackling the nonliear case is analogy to linear case such as weak periodic potential limit and tight-binding limit.
+\experiment{Paper000001}
+This article discussed the classic adiabatic evolution. In the classic case, the eigenstate in quantum case corresponds to the fixed point of phase space in classic case. So intuitively speaking, the state of classic system could follow the change of fixed point when system is doing adiabatic evolution. The problem comes from possible nonlinearity which could cause bifurcations. In that case, we could not naively apply theorem like quantum adiabatic theorem. In what kind of condition the system could do adiabatic following? This article doesn't answear this question. However, it proposed that the intrisic dynamical fluctuation could be used to determine the direction of bifurcation and disccuss the berry phase in cyclic adiabatic evolution case.
+\experiment{Summary}
+Thouless Pumping shows that the quantizaiton of particle transport  under cyclic adiabatic pumping. The problem I want to investigate is the case of nonlinear schrodinger equation. The numerical simulation shows that the pumping is still quantized even adding the nonlinear interaction term as long as the nonlinear effect is not so strong. How to prove the quantization in nonlinear situation? Compare with linear case, Thouless apply the adiabatic perturbation theory to first order. It shows that the charge pumping could be expressed as integration of Berry curvature. What about the nonlinear situation? I need to consider the adiabatic perturbation theory in nonlinear case. Then I expect that the charge pumping in nonlinear case still could be expressed into something like Berry curvation as long as the topology of band structure is not significantly changed.\\
+The adiabatic perturbation theory for nonlinear system is absent. I want to find a way out from classic mechanics. I want to investigate the canonical perturbation theory in classic menchanics and see how the adiabatic theorem is developed in classic limit. Hope to find some inspirations.
+\labday{Thursday, 14 July 2016}
+To do list:
+\begin{enumerate}
+\item
+Learn Classic Mechanic Method.
+\begin{enumerate}
+\item
+Hamilton-Jacobi Theory Checked.
+\begin{equation}
+\pd{S(q,\alpha,t)}{t}+H(q,\pd{S}{q},t)=0
+\end{equation}
+\item
+Action-Angle Variables Checked.
+\begin{equation}
+J=\oint p\mathrm{d}q
+\end{equation}
+\begin{equation}
+\omega=vt+\beta
+\end{equation}
+\begin{equation}
+\Delta \omega =\oint \pd{\omega}{q}\mathrm{d}q=1=v\tau
+\end{equation}
+\item
+Canonical Perturbation Theory Checked.
+\begin{equation}
+H(q,p,t)=H_0(q,p,t)+\Delta H(q,p,t)
+\end{equation}
+\begin{equation}
+\left\{
+\begin{aligned}
+\dot{\alpha_i}&=-\pd{\Delta H(\alpha,\beta,t)}{\beta_i}\\
+\dot{\beta_i}&=\pd{\Delta H(\alpha,\beta,t)}{\alpha_i}
+\end{aligned}
+\right.
+\end{equation}
+\item
+Classic Adiabatic Theorem - Adiabatic Invriant
+The action variables $J$ plays the role of adiabatic invriant. 
+\begin{equation}
+\bar{\dot{J_0}}=0+O(\dot{a}^2,\ddot{a})
+\end{equation}
+\end{enumerate}
+\end{enumerate}
+%----------------------------------------------------------------------------------------
+\labday{Friday, 15 July 2016}
+To do list:
+\begin{enumerate}
+\item
+Classic correspondence of nonlinear schrodinger equation
+\item
+Find a simple model system of nonlinear schrodinger equation
+\item
+Try to apply canonical perturbation theory to find the adiabatic evolution of the eigenstate of the model system
+\end{enumerate}
+\experiment{Paper000002}
+This paper try to generalize the adiabatic theorem to systems governed by  nonlinear schrodinger equaiton. The key approach used in this paper is to convert nonlinear schrodinger equation into an equivalent classic hamiltonian describtion. The eigenstate in quantum sense then corresponds to a fixed point in phase space of hamitonian dynamics. Thus, it claims that usually we chould expect adiabatic following holds for elliptical fixed point while for hyperbolic fixed point is not. \\
+This paper also find a connection between classic adiabatic invirant- action variables and AA phase. It shows that the AA phase plays the role of adiabatic invriants in the nonlinear system as long as the nonlinearity in not too strong(no significant tunnuelling).
+%----------------------------------------------------------------------------------------
+\labday{Monday, 18 July 2016}
+\experiment{Paper000003}
+I don't quite understand the main idea of this paper. This paper proposed a possible definition of nonlinear berry phase. Beside the uausal term in linear case, there is an additional term caused by nonliear effect. The author write in the abstract explains as'' the Bogoliubov excitations around the eigenstates are found to be accumulated during the nonlinear adiabatic evolution and contribute a finite phase of geometric nature''.
+
+\experiment{Paper000004}
+This paper gives the exact solution of GP equation in the sense of order $1/T$. The content of this paper is pretty technical. In my opinion, the core aspects of the approximation method used in this paper is in two aspects. First, it associated the solution of nonliear GP equation with the ``classical'' Ehrenfest equation; Second, it linearizes the nonliear GP equation around the mean value of operators. The details of this paper is really disgusting... I can't go throught the whole content. However, it least provides me a possible way to find the adiabatic perturbation in nonlinear system. The result of this paper shows that we should expect that there exists some additional terms caused by nonlinearity compared with the linear case. 
+%----------------------------------------------------------------------------------------
+\labday{Tuesday, 19 July 2016}
+\experiment{Paper000005}
+%----------------------------------------------------------------------------------------
+\labday{Wednesday, 20 July 2016}
+To do list:
+\begin{enumerate}
+\item
+Study the theory of nonlinear Landau-Zener Tunnelling thoroughly.
+\item
+Do numerical calculation of nonliear Schrodinger equation
+\item
+Do numerical calculation of corresponding classic hamitonian system
+\end{enumerate}
+\experiment{Paper000006}
+This paper give a thorough description of nonliear Laudan-Zener tunneling. The hamiltonian is a simple two level system with its eigenenergy affected by eigenstate population. Nonliearity always gives us troubles but also richer structures. This paper maps the nonlinear two level system to an effective classical system. Choose the action-angle as the canonical coordinations and use the evolution of fixed point in phase space to discuss the phenomena of tunnelling. \\
+The focus of this paper is to used these classic methods to calculate the tunnelling probability. This is not the problem I care about. I want to extend 1st order adiabatic perturbation theory to nonlinear region. However, as a simple model system, it's really useful to learn this model no matter for inspiration or verification.\\
+
+%----------------------------------------------------------------------------------------
+\labday{Thursday, 21 July 2016}
+To do list:
+\begin{enumerate}
+\item
+Numerical calculation of two level Landau-Zener model
+\item
+Learn adiabatic perturbation theory in classic mechanics
+\end{enumerate}
+Unfinished. To be continued tommorrow.
+%----------------------------------------------------------------------------------------
+\labday{Friday, 22 July 2016}
+The same as yesterday. Numerical calculation of two-level Landau-Zener model finished.
+%----------------------------------------------------------------------------------------
+\labday{Monday, 25 July 2016}
+\experiment{Paper000007}
+This paper gives a general description of classical adiabatic evolution. It discussed the time evolution of the so-called Intrinsic Dynamical Fluctuation during the adiabatic process. Put it simply, it derives the time evolution of the deviation from ideal classical adiabatic orbits. The general result is not a very simple form and not easy to calculate. However, authors also provide some simple cases for verification. One is for the fixed-point solution which could simplify the general result. The another one is for two-mode GP equation. It serves as an example to discuss the possible ``pollution'' to Hannay angle in classic adiabatic process. In principle, the method used in this paper could regard as a first order adiabatic perturbation theory. I think it will be useful for my disccusion of interband effect in nonlinear region.
+%----------------------------------------------------------------------------------------
+\labday{Tuesday, 26 July 2016}
+\experiment{Paper000008}
+This paper discusses the emergence of ``pollution'' terms to geometric phase arising in general adiabatic evolution. This paper is based on the previous paper\cite{Zhang20121202} which gives a description of intrinsic dynamical fluctuations. This paper shows that the overall phase of general quantum state in two-level GP equation consists of five terms:
+\begin{equation}
+\phi=I_0\Delta \theta + \beta_{Berry}+D_0+\Theta_{pol}+D_{pol}
+\end{equation}
+Besides the expected berry phase term, $D_0$ is the new dynamical phase which is the analogy to linear case; $I_0\Delta \theta$ will vanish for eigenstate; $\Theta_{pol}$ and $D_{pol}$ are ``pollution'' caused by intrinsic dynamical fluctuation. It depends on the details of adiabatic control.\\
+Adiabatic theorem for general quantum state in GP equation is not well described yet. Maybe it's helpful to take a look at it.
+%----------------------------------------------------------------------------------------
+\labday{Wednesday, 27 July 2016}
+To do list:
+\begin{enumerate}
+\item Do numerical simulation of Two-Mode GP equation based on classic Hamiltonian method for further investigation.
+\item Consider the case of adiabatic evolution for general quantum state.
+\end{enumerate}
+Unfortunately, unsually ODE numerical method is not stable. The corresponding classic Hamitonian dynamical equations have singular around the eigenstates. The Runge-kutta likewise method cannot maintain the norm of the state which is impossed as constraint during the derivation. This shortage makes result breaks down quickly. Therefore, This way is not appropriate for simulating adiabatic process (long time evolution is needed). The next attempt, I will use time splitting method directly from schr$\ddot{o}$dinger equation. Hope it works well.
+
+\labday{Thursday, 28 July 2016}
+To do list:
+\begin{enumerate}
+\item
+Try to accomplish numerical simulation of Two-Mode GP equation. Note to void numerical instability caused by nonliearity.
+\item
+Check some result in theory.
+\end{enumerate}
+\labday{Tuesday, 2 August 2016}
+I meet problems in numerical calculation. I can't even get a self consistent eigenstate of Two-Mode GP equation!!!! In order to obtain the eigenstate of Two-Mode GP equation, I find that the components of eigenstate must satisfy following three conditions simultaneously:
+\begin{equation}
+\begin{aligned}
+\abs{b}^2-\abs{a}^2&=-\frac{1}{\epsilon}\left(\frac{\gamma}{2}+\frac{C}{2}\right)\\
+\abs{b}^2+\abs{a}^2&=1\\
+-\frac{2}{V}\left[\frac{\gamma}{2}+\frac{C}{2}(\abs{b}^2-\abs{a}^2)-\epsilon\right]a&=b
+\end{aligned}
+\end{equation}
+The most tricky problem is that I find these three conditions cannot be satistied simultaneously!!!!!!  which leads that I cannot get a self-consistent solution! I need to check further and decide whether all these three conditions are necessary or if there is something wrong during my derivation. Time is limited, be quick!
+\labday{Friday, 5 August 2016}
+Ok, I have to admit that all the problems are caused by my stupid mistake. I write the relation of population difference incorrectly... Finally, the numerical simulation of Two-Mode GP equation is finished. The simulation results are pretty good but still need more understanding. \\
+Next step, I will try to add nonlinearity into usual Chern insulator and calculate some properties of it, especially the adiabatic pumping. Hope the time is still enough, come on!
+To do list of recent days:
+\begin{enumerate}
+\item
+Be familiar with the Chern insulator.\\
+After reading about some materials about topological insulator, I begin to have some feelings about the concept of topological insulator. My study starts from Su-Schrieffer-Heager(SSH) model to Rice-Mele model( + onsite potential) and finally to the simplest 2D Chern insulator. I also learn a little about the edge-bulk correspondce and how symmetry plays an important role in such a relation.
+\item
+Consider how to add nonliearity into original model or establish relation with Two-Mode GP equation.\\
+I tried to add a diagonal on-cell state-dependent interaction to the Chern insulator. However, this model has difficulties caused by intercell interaction which makes the equation coupled with each other. I am still making an effort to solve this model or try other ways of introducing nonliearity.
+\item
+Be familiar with the calculation of adiabatic pumping\\
+About the adiabatic pumping, the traditional way is based on the first order adiabatic perturbation theory. The calculation needs the time evolution of state. The linear case connects the state time evolution besides the adiabatic theorem claims with the berry curvature and then leads to the quantization of adiabatic pumping. A severe problem of adiabatic pumping in the nonlinear case is that there is not first order adiabatic perturbation theory. Until now, I begin to doubt that whether I should use adiabatic perturbation theory to handle this problem. Although I admit that there perhaps exist appropriate perturbation theory at least in weak nonliearity case, I still wonder that there may have other better views to think of this problem.\\
+By the way, we usually do calculation with floquet state when system possess translational symmetry. Sometimes using Wannier state instead may give us a better illustration.
+\item
+Try to find clues about how to do first order adiabatic perturbation with nonliearity, this would be difficult.\\
+Still no idea...
+\end{enumerate}
+\labday{Wednesday, 31 August 2016}
+Recently, I begin to prepare some necessary background of graduation design. My graduation design will be related to Janus particle and mainly about the self-electrophoresis. In order to be prepared to enter this field, I need to pick up my knowledge about the fluid mechanics and electrodynamics firstly and be familiar with some essential concepts of this field. After skimming several papers in this field, my arrangement of preparation is as following:
+\begin{enumerate}
+\item
+Chapter 4, Chapter 7 and Chapter 8 of \emph{Foundations of Colloid Science} by Robert J. Hunter.
+\item
+Basic theory of modeling the motion of charged colloidal under exteral electric field.
+\item
+Basic theory of modeling the motion of charged Janus particle under self-generated electric field.
+\end{enumerate}
+\experiment{Paper000009}
+\experiment{Paper000010}
+\experiment{Paper000011}
+
+\labday{Wednesday, 7 September 2016}
+\experiment{Summary of NUS summer research program}
+\emph{Intro.}:\\
+
+Before I depart from NUS and finish my summer research program in NUS, I want to do a brief summay of research during these two months. Although I feel a little regret that I can't obtain any results during this summer research program, I don't want my efforts disappeared in my memory. This short article is used for recording the road map of this summer research and hope it could be served as a good experience for my future research.\\
+
+\emph{Some informations}:\\
+
+Name of Program: IRO Summer Research Program, National University of Singapore\\
+Start and End Date of Program: 27-JUNE-2016 to 9-SEPT-2016\\
+Student No.: A0151581J\\
+
+\emph{The start of my summary}:
+
+Before I start my summer research program, my focus is mainly put on the geometry phase and adiabatic perturbatino theory. \\
+
+My basic concepts of geometry phase are established by reading the review paper \emph{Berry phase effects on electronic properties}\cite{XiaoChangNiu2010} and the notes \emph{Geometry and Topology  in Electronic Structure Thoery}\cite{Resta2016}. Throught reading these materials, I know how to define Berry phase and Berry curvature and many applications where geometry phase emerged, such as A-B effect, polarization, quantization of transport, Chern insulator and correction to the semiclass equaiton of motion in condense matter physics and so on. It shows that the geometry phase really has promising applications in many fields of physics. \\
+
+On the other hand, I also learned some basic techniques of adiabatic perturbation theory. The start point of this is the common adiabatic theorem in quantum physics which states that if the initial state of a system is the eigen-energy state then the system will stay at the instantaneous eigen-state as long as the parameters changed slowly enough (adiabatic evolution) apart from a dynamical phase and a geometrical phase will emerge. \\
+
+Then, When I arrived in NUS and Prof. Gong wants me to study the interband coherence effect of systems which are governed by Gross–Pitaevskii equation(Nonlinear schr$\ddot{o}$dinger equation). At the beginning, I am ambitious and I don't think this is a very tough problem. Then I quickly learnd the interband coherence effect in linear case \cite{PhysRevB.91.085420}, i.e. the evolution of system is still governed by schr$\ddot{o}$dinger equation. Put it simply, the usually adiabatic theorem only concerned about the time evolution of energy eigenstate while the interband coherence effect will occur when we consider the superposed initial state. The first order adiabatic perturbation theory will give the term which is proportional to the inverse of time $T$, i.e.
+\begin{equation}
+C_n(t)=C_n(0)+f\times\frac{1}{T}+O(\frac{1}{T^2})
+\end{equation}
+In common adiabatic theorem, we could safely eliminate the first order term as the term $T$ approaches to infinity. However, when we consider some special quantities (for example the displacement of wannier state in the paper\cite{PhysRevB.91.085420}), the first order correction combined with the infinite long time integration will produce a zeroth order correction:
+
+\begin{equation}
+\begin{aligned}
+\Delta\avg{x}&=\sum_n\int \mathrm{d}k \int \mathrm{d}\beta B_n(\beta,k)\rho_{n,k}(0)\\
+&-2\sum_{m\neq n}\int \mathrm{d}k \left[C^\ast_{n,k}(0)C_{m,k}(0)\frac{\mathrm{d} E_{n,k} }{\mathrm{d} k}W_{nm,k}(0)\right]
+\end{aligned}
+\end{equation}
+where the first term is the common integration of Berry curvature $B_n(\beta,k)$ but weighted by the initial population. The second term is the additional term induced by interband coherence and is sensitive to the detail of adiabatic protocol.\\
+It shows that it's a significant correction which cannot be ignored even in the adiabatic limit and which depends on the initial state and the rate of parameters changing.\\
+
+I want to reproduce similar result in systems governed by GP equation. Look at the whole derivation process in linear system, the key is the first order adiabatic perturbation theory. If we could obtain the first order adiabatic evolution of state, then we could easily calculate our concerned quantities, such as the adiabatic pumping or displacement.  Take the diabatic pumping as an example. The typical Thouless pumping is given by\cite{PhysRevB.27.6083}:
+\begin{equation}
+Q=\frac{1}{2\pi}\int_{-\pi}^{\pi}\mathrm{d}k \int_0^T \mathrm{d}t \bra{\Psi(t)}\pd{H(k,t)}{k}\ket{\Psi(t)}
+\end{equation}
+With the aid of aidabatic perturbation theory, in common linear system, we could prove that the number of charge pumping in each periodic cycle could be expressed as the integration of Berry curvature and that shows the the number particle pumping is quantized and is exactly the Chern number of corresponding band.\\
+
+The problem is that there is no developed adiabatic perturbation theory for nonlinear system. Then, I try to find the appropriate mathematical techniques to handle this difficulty. The first attempt is related to the so-called nonlinear adiabatic theorem\cite{PhysRevLett.90.170404,PhysRevA.81.052112}. In the paper \cite{PhysRevLett.90.170404}, authors use the ``classic'' form of nonlinear Schr$\ddot{o}$dinger equation to discuss the adiabatic theorem:
+\begin{equation}
+i\d{\psi_j}{t}=\pd{}{\psi_j^\ast}\mathbb{H}(\psi,\psi^\ast,\v R)
+\end{equation}
+Choose a specific set of canonical variables which are called action-angle in classic mechanics, the above form could be written equivalently as:
+\begin{equation}
+\left\{
+\begin{aligned}
+\d{q_j}{t}&=\pd{H}{p_j}\\
+\d{p_j}{t}&=-\pd{H}{q_j}
+\end{aligned}
+\right.
+\end{equation}
+where
+\begin{equation}
+\left\{
+\begin{aligned}
+q_j&=\mathrm{arg}\psi_j - \mathrm{arg} \psi_N\\
+p_j&=\abs{\psi_j}^2\\
+q_N&=\mathrm{arg} \psi_N\\
+p_N&=\sum_{j=1}^N \abs{\psi_j}^2
+\end{aligned}
+\right.
+\end{equation}
+Because of the conservation of probability, the overall phase could be seperated out from the Hamiltonian and the time-evolution of overall phase is given by a seperated equation:
+\begin{equation}
+\d{\lambda(t)}{t}=\sum_{j=1}^N \phi_j^\ast i \pd{}{t}\phi_j - \sum_{j=1}^N \phi_j^\ast \pd{}{\phi_j^\ast}H
+\end{equation}
+The second term is the usually time integration of energy in linear case which is corresponded to the dynamical phase part; The first term could still be regarded as a certain kind of Berry phase in nonlinear case\cite{PhysRevA.81.052112}. \\
+
+After mapping the quantum system to canonical classic system, the eigenstate maps to the fixed point in phase space of canonical system. To further understand the aidabatic theorem in nonlinear system, I choose the simplest system two-level system-Landau-Zener system to illustrate the nonlinear adiabatic theorem\cite{PhysRevA.66.023404}. In this paper \cite{PhysRevA.66.023404}, authors showed clearly the band-structure of Landau-Zener model and applied the above mentioned action-angle techniques to show the adiabatic theorem and calculate the tunnelling rate. It also discussed the conditions for adiabatic theorem holds in nonlinear case.\\
+
+To sum up, nonlinearity will cause the emergence of loop structure in energy specturm and system will have number of eigen-state beyond their physical dimension. The adiabatic theorem will usually break down when passing through the loop structure caused by nonlinearity. \\
+According to the classic adiabatic theorem, the action $I$ could serve as the adiabatic invariant and will remain constant during adiabatic change. Thus, for a system initially prepared at the energy eigen-state, we expect the system evolves along the fixed point in each time steps. The problem comes when the fixed point collided with a saddle point in the phase space. After passing throught this transition point, action $I$ will still remain constant because of adiabatic control but maybe a different constant compared with original action. That's why tunnel happens even in adiabatic limit.\\
+
+Above readings and discussions didn't give me much useful information to solve my problem. Because above mentioned nonlinear adiabatic theorem only concerned the zeroth order approximation, I want the first order correction of adiabatic evolution to obtain some undiscoverd results. Fortunately, this problem is concerned in paper \cite{PhysRevLett.110.130402, 1367-2630-16-12-123024, 1751-8121-45-29-295302, Zhang20121202}. Let me summarize the main ideas I learnt from these papers here:
+
+The paper \cite{PhysRevLett.110.130402} focused on the first order correction upon the adiabatic theorem which is called intrinsic dynamical fluctuation in that paper. It shows that such kind of fluctuation around the ideal adiabatic evolution must exist and could be useful for determining the direction of bifurcation which is usually regarded as indeterministic at least in my opinion. \\
+
+The detailed calculation of intrinsic dynamical fluctuation is given in the paper \cite{Zhang20121202}. Sitll utilize the action-angle variables, the evolution of system could be expressed as:
+\begin{equation}
+\left\{
+\begin{aligned}
+\d{I_i}{t}&=-\pd{\v W}{\theta_i}\d{\v R}{t}\\
+\d{\theta_i}{t}&=\omega_i(\v I;\v R)+\pd{\v W}{I_i}\d{\v R}{t}
+\end{aligned}
+\right.
+\end{equation}
+where
+\begin{equation}
+\omega_i(\v I,\v R)=\pd{H}{I_i}
+\end{equation}
+is the angular frequency and $\v W$ is defined as
+\begin{equation}
+\v W=\nabla_{\v R} F[\v I,\v q(\v I,\gv \Theta,\v R),\v R]-\v p \cdot \nabla_{\v R}\v q(\v I,\gv \Theta,\v R)
+\end{equation}
+Define the $\bar{\v I}$ and $\bar{\v \Theta}$ as idealized trajectory of adiabatic evolution, then
+\begin{equation}
+\left\{
+\begin{aligned}
+\v I&=\bar{\v I}+\delta \v I\\
+\gv \Theta&=\bar{\gv \Theta}+\delta \v \Theta
+\end{aligned}
+\right.
+\end{equation}
+Keep up to first order of $\delta \v I$ and $\delta \v \Theta$, following differential equation is given:
+\begin{equation}
+\Gamma
+\begin{pmatrix}
+\delta \v p\\
+\delta \v q
+\end{pmatrix}
+=
+\gv \Sigma \cdot \d{\v R}{t} + \Pi 
+\begin{pmatrix}
+\delta I_1\\
+\delta I_2\\
+\vdots\\
+\delta I_N
+\end{pmatrix}
++
+\begin{pmatrix}
+\pd{\delta \v p}{\bar{\theta_j}}\omega_j\\
+\pd{\delta \v q}{\bar{\theta_j}}\omega_j
+\end{pmatrix}
+\end{equation}
+Details could be found in paper \cite{Zhang20121202}. This is a complicated differential equation and it's hard to apply to the system I want to study. The complicated form really bothers me a lot but at least I finally have a seeming possible tool to calculate the first order fluctuation upon the zeroth order adiabtatic evolution.\\
+
+Although the possible tool is complicated and hard to apply, I still have hopes to solve my target problem. Then, I turn my attention to the specific systems. I choose the Chern insulator as my model system and try to add nonlinearity into Chern insulator. I try to discuss the pumping of Chern insulator and stability of edge mode with the nonlinear on-site potential. In order to achive that, I study the basic concepts of topological insulators. My main reference in this stage is a book named \emph{A Short Course to Topological Insulator} \cite{JanosK.Asboth2016}. I start from the Su-Schrieffer-Heeger(SSH) Model to Rice-Mele Model with on-site potential additionally and finally to the Qi-Wu-Zhang model which is the simplest Chern insulator I want to study. Besides the main line of study, I want know about the bulk-edge correspondce which I think it has special interest. The number of the possible edge mode is related to the properties of bulk such as the Chern number. The existence of edge mode is also closely related to the symmetry which system broken. \\
+
+The next enters my concrete model I used. The Hamiltonian of Chern insulator in momentum space could be written as:
+\begin{equation}
+\tilde{H}(k_x,k_y)=\sin(k_x)\sigma_x+\sin(k_y)\sigma_y+\left[M+\cos(k_x)+\cos(k_y)\right]\sigma_z
+\end{equation}
+The Hamiltonian in real space is
+\begin{equation}
+\begin{aligned}
+H&=\sum_{\v r} \left[C^\dagger_{\v r}\frac{-i\sigma_x-\sigma_z}{2}C_{\v r+\uv x} + C^\dagger_{\v r}\frac{i\sigma_x-\sigma_z}{2}C_{\v r-\uv x} \right. \\
+&\left.+ C^\dagger_{\v r}\frac{-i\sigma_y-\sigma_z}{2}C_{\v r+\uv y} + C^\dagger_{\v r}\frac{i\sigma_y-\sigma_z}{2}\sigma_{\v r-\uv y}-mC_{\v r}^\dagger C_{\v r}\right]
+\end{aligned}
+\end{equation}
+In order to see the edge mode, choose the y-direction to be periodic and transform it to momentum space and keep x-direction in real space:
+\begin{equation}
+\begin{aligned}
+H_0(k_y,x)&=\sum_{k_y}\sum_x \left\{ C_{x,k_y}^\dagger \frac{-i\sigma_x-\sigma_z}{2} C_{x+\uv x,k_y}\right.\\
+&+C^\dagger_{x,k_y}\frac{i\sigma_x-\sigma_z}{2}C_{x-\uv x,  k_y}\\
+&\left. +\left[\sin k_y \sigma_y + (2-m-\cos k_y)\sigma_z\right]C_{x,k_y}^\dagger C_{x,k_y}\right\}
+\end{aligned}
+\end{equation}
+Now, I want to  add nonlineartiy into the on-site potential. I imitate to add the nonlinearity which lets the on-site potential depends on the population difference in each sublattice:
+\begin{equation}
+H_N(k_y,x)=\sum_{k_y}\sum_x g(\abs{b_x}^2-\abs{a_x}^2)\sigma_z C^\dagger_{x,k_y}C_{x,k_y}
+\end{equation}
+where $g$ controls the strength of nonlinearity and $\abs{a_x}^2$ and $\abs{b_x}^2$ are the population on sublattice A and B in cell x respectively. Therefore, the Hamiltonian in matrix form is:
+\begin{equation}
+H=
+\begin{pmatrix}
+H_{11}&H_{12}&\cdots\\
+H_{21}&H_{22}&\cdots\\
+\vdots&\vdots&\ddots
+\end{pmatrix}
+\end{equation}
+where
+\begin{equation}
+H_{11}=
+\begin{pmatrix}
+2-m-\cos k_y + g(\abs{b_1}^2-\abs{a_1}^2)& -i\sin k_y\\
+i\sin k_y&-(2-m-\cos k_y)-g(\abs{b_1}^2-\abs{a_1}^2)\\
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+H_{12}=
+\begin{pmatrix}
+-\frac{1}{2}&-\frac{1}{2}i\\
+-\frac{1}{2}i&\frac{1}{2}
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+H_{21}
+\begin{pmatrix}
+-\frac{1}{2}&\frac{1}{2}i\\
+\frac{1}{2}i&\frac{1}{2}
+\end{pmatrix}
+\end{equation}
+\begin{equation}
+H_{22}=
+\begin{pmatrix}
+2-m-\cos k_y + g(\abs{b_2}^2-\abs{a_2}^2)& -i\sin k_y\\
+i\sin k_y&-(2-m-\cos k_y)-g(\abs{b_2}^2-\abs{a_2}^2)\\
+\end{pmatrix}
+\end{equation}
+
+The eigen-energy is given by:
+\begin{equation}
+H \Psi=\epsilon \Psi
+\end{equation}
+However, the coupling caused by intercell hoping made this problem is hard to solve. I try to suppress the intercell hoping firstly, then the eigenenergy in each unicell is just like in the Landau-Zenner case. The eigen-energy when intercell hoping is suppressed is given as:
+\begin{equation}
+\epsilon^4+(2C_i g)\epsilon^3+(C_i^2 g^2 -W^2+sin^2k_y)\epsilon^2+(2C_i g \sin^2k_y)\epsilon + C_i^2g^2\sin^2k_y=0
+\end{equation}
+where $g$ is the strength of nonliearity, 
+\begin{equation}
+\begin{aligned}
+C_i&=\abs{a_i}^2+\abs{b_i}^2\\
+1&=\sum_i C_i\\
+W&=2-m-\cos k_y\\
+\abs{b_i}^2-\abs{a_i}^2&=-\frac{W(\abs{a_i}^2+\abs{b_i}^2)}{g(\abs{a_i}^2+\abs{b_i}^2)+\epsilon}
+\end{aligned}
+\end{equation}
+Suppose the $\gamma$ is used for controling the strength of intercell hoping. Then I aidabatically open the intercell hoping $\gamma$ from $0$ to $1$. Thus, a initial eigenstate will evolve as the instantaneous eigenstate as long as the adiabatic theorem holds. I will use this to calculate the energy-specturm of the coupled situation and check the stability of edge-state.
+
+\labday{Monday, 19 September 2016}
+\experiment{The beginning of my thesis}
+After tackling some meticulous affairs, now I am ready to switch myself into research mode. I have to catch up quickly then try to think about the problem in my own point of view. The main task of week is to read some background papers\cite{ChiangVelegol2014,Fixman1980,KlineIwataLammertEtAl2006,OBrienWhite1978,RobertJ.HunterRowell1981,Teubner1982} about Janus particle which I have read before. However, this time I need to read carefully and understand the detail of each paper. Hope you well in the next coming year!
+
+\labday{Tuesday, 22 September 2016}
+\experiment{Three Talks given by Peter H{\"a}nggi}
+What a coincidence could meet with Peter H{\"a}nggi again in my university. During my visit in NUS, Peter collaborated with Deng Jiawen to write a paper about Jarzynski equality\cite{Jarzynski1997a}. The central idea of their work is pretty simple and straightforward. They want to illustrate a case which the ensemble average of exponential work in Jarzynski equality will be divergent even in adiabatic limit. Then, the ensemble average of exponential work will be divergent for all processes( include non-adiabatic processes). They showed this situation in classic case and verified it with numerical examples. That's all I want to recall about Peter in singapore. \\
+This time in my university, Peter gave a talk about Brownian motion in Zhiyuan Salon and another two talks about diffusion in confined geometry \cite{burada2009diffusion} for Zhang Hepeng's group. The talk given in Zhiyuan Salon is pretty general and I got too much in this talk. Thus, I mainly want to record something I learnt from last two talks.\\
+To describe the motion of small particles in fluid, the most straightforward idea is to solve the equations of motion of all particles in the system. However, that's too complicated to solve. In order to simplify the problem, a random noise could be added to the equation of motion to replace the coupling with external environment. That's the view of Langevin. This idea is still Newton-like and the trace of single particle is crucial in this theory. On the contrary, the idea of Fork-Plank thoery gave up the idea to trace each particle individually. The Fork-Plank equation cares about the possiblity. These two ideas are equivalent.\\
+Peter mainly focused on the diffusion in confined geometry during these two talks. From my point of view, the mathematics involved in this problem is not very difficult. Just solve the Fock-plank equation with confined boundary conditions. Maybe it is not easy to solve. Then apply some approximation method and check the validity of this approximation. If the approximation is valid, then derived the relevant properties in this situation such diffusion constant or mobility. Perhaps, we check the theory proposed by Peter using numerical tools and then do some modifications. At last, we could check the theory via experimental method. It's a pretty prospective road map. \\
+To sum up, I have some interests about this problem and maybe I could talk about it further with Yang Xiang and Ding Ziwei in later group meeting. If possible, I am also willing to participate in this problem.
+
+\labday{Wednesday, 28 September 2016}
+\experiment{First Associated Group Meeting of Soft Matter}
+Successfully finishing the meeting in Harbin, I finially could find some time to do my own work. Today's associated group meeting is about the Man-made particles self-assemble like atoms. The fabrication process of this kind of man-made particle is pretty interesting. Professors are also debating fervently about the details of the fabrication techniques. However, the long time needed for assembling is not good for application and I also don't expect such a man-made particles to form a macroscopic structure. No matter what, it provides a method to fabricate particles which could form atoms with certain symmetry. I am looking forward to the next group meeting. \\
+Prof. Xing said he will use two hours to give a talk about the book Life-As a matter of fat in the next group meeting. And I heard Mr. Liang Yihao is pretty good at GUP computation. That's pretty interesting and maybe I could find a chance to talk with him. 
+\labday{Thursday, 6 October 2016}
+%----------------------------------------------------------------------------------------
+\end{addmargin}
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\phantomsection
+\bibliographystyle{unsrt}
+\bibliography{Ref}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
