@@ -172,6 +172,7 @@
 \newexperiment{Paper000012}[Charged macromolecules in external fields. I. The sphere]{Charged macromolecules in external fields. I. The sphere\cite{Fixman1980}}
 \newexperiment{Paper000013}[Geometrical Performance of Self-Phoretic Colloids and Microswimmers]{Geometrical Performance of Self-Phoretic Colloids and Microswimmers\cite{Nourhani2016}}
 \newexperiment{Paper000014}[Nano/Microscale motors: biomedical opportunities and challenges]{Nano/Microscale motors: biomedical opportunities and challenges\cite{Wang2012}}
+\newexperiment{Paper000015}[Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors]{Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors\cite{ChiangVelegol2014}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -637,6 +638,36 @@ As we known, cell membrane is a lipid fluid bilay with many proteins and channel
 As a highly simplified model, the energy of a curved lipid surface could be given by two major terms: one is for bending energy described by mean curvature( average of two principal curvature), another is for a more or less global deformation which depends on the Gauss curvature of the surface. These contributions are from deformation of the lipid surface. Then put it into interactions with water molecule with finite temperature, we could possibly find the favorable pattern of lipid molecule no matter from molecular dynamics or some other statistical method. \\
 Prof. Xing emphsized that there are some possibilities to improve the original simplified model by considering the electrical-dipole interaction or the tail tilting of lipid molecule. It could be interesting to think about this problem.\\
 Form my point of view, a lipid molecule is like a bio-compatible Janus particle. It consists of a hydrophobic tail and a hydrophilic head and just likes the Janus particle possesses two parts with distinct properties. Self-assembly is also another important topic of active matter. I am wondering whether I could use the moter in Prof. Zhang's lab to do similar pattern formation. That would be interesting.
+\labday{Thursday, 13 October 2016}
+\experiment{Paper000015}
+This paper introduced the concept of Localized Electroosmosis(LEO) to explain the size-dependence of motor velocity. The introduction part of this paper is well written and gives me many good reference for some questions I cared about. Modifications proposed by this paper is still based on usual electrokinetic model and consider closely to the boundary effect caused by the wall-motor interactions. Although there are still some unclear points in this paper, it at least found one significant factor should be taken into account in confined microchannel. \\
+Some questions I need to clarity further:
+\begin{enumerate}
+\item
+The inner solution for EDL and small flux on the surface of mother was found to be\cite{KlineIwataLammertEtAl2006}:
+\begin{equation}
+\v E = \frac{\v J k T}{2e D_{H^+}n_\infty}
+\end{equation}
+This is crucial for solving the equations of electrical part. I want to learn more about the validity of this equation.
+\item
+A detail about the boundary condition of the electrical field at the surface of the motor:
+\begin{equation}
+-\pd{\phi}{\bar{r}}=\frac{j}{2}
+\end{equation}
+After the nondimensionalization, where is the $\frac{kT}{e}$ term?
+\item
+Boundary condition of fluid part at the wall:
+\begin{equation}
+\bar{\v v}=\frac{\epsilon\xi_w}{\eta U_\infty}\frac{kT}{Ze(a+\delta)}\pd{\phi}{\bar z}\uv i_z
+\end{equation}
+How to derive this condition? This paper doesn't state it clearly.
+\item
+This paper ignores the contributions from gradient of pressure. 
+\item
+How to understand electroosmosis? Why external applied electrical field could cause fluid field change of an neutral solution.
+\item
+The dynamics of motor (Force balance, Induced torque and so on)
+\end{enumerate}  
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
