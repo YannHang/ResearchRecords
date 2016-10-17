@@ -173,6 +173,7 @@
 \newexperiment{Paper000013}[Geometrical Performance of Self-Phoretic Colloids and Microswimmers]{Geometrical Performance of Self-Phoretic Colloids and Microswimmers\cite{Nourhani2016}}
 \newexperiment{Paper000014}[Nano/Microscale motors: biomedical opportunities and challenges]{Nano/Microscale motors: biomedical opportunities and challenges\cite{Wang2012}}
 \newexperiment{Paper000015}[Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors]{Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors\cite{ChiangVelegol2014}}
+\newexperiment{Paper000016}[Electrokinetic Locomotion]{Electrokinetic Locomotion\cite{Moran2013}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -654,7 +655,8 @@ A detail about the boundary condition of the electrical field at the surface of 
 \begin{equation}
 -\pd{\phi}{\bar{r}}=\frac{j}{2}
 \end{equation}
-After the nondimensionalization, where is the $\frac{kT}{e}$ term?
+After the nondimensionalization, where is the $\frac{kT}{e}$ term?\\
+Come on, the term is used for nondimensionalizing the potential. Stupid question.
 \item
 Boundary condition of fluid part at the wall:
 \begin{equation}
@@ -668,6 +670,73 @@ How to understand electroosmosis? Why external applied electrical field could ca
 \item
 The dynamics of motor (Force balance, Induced torque and so on)
 \end{enumerate}  
+\labday{Friday, 14 October 2016}
+\experiment{Bimetallic microswimmers speed up in confining channels}
+Reserved.
+\labday{Saturday, 15 October 2016}
+\experiment{Paper000016}
+Literature Review Section\\
+This is a PhD thesis. I read through the literature review part of this thesis. It contains enormous information and gives me a general development of this field. Let me have a rest and I will update it later.
+\labday{Sunday, 16 October 2016}
+\experiment{Paper000016}
+Theoretical Formulation Section\\
+Because I lack some basic knowledge about active matter, I read through this part of Moran's thesis\cite{Moran2013}. His thesis exhibits a tranditional approach for modeling of electrokinetics. I summarize some key concepts here:
+\begin{enumerate}
+\item
+Although the whole electrolyte is neutral, there may exist space charge around the motor. Generally speaking, two factors contribute to the space charge:
+\begin{enumerate}
+\item
+asymmetry in cation concentration induced by chemical reaction;
+\item
+net charge in the diffuse screening layer (a negatively charged surface of motor will attract cations and repulse anions);
+\end{enumerate}
+\item Gradient of field contributes to the motion of motor.
+\begin{enumerate}
+\item
+concentration gradients of charged species;
+\item
+electrical potential gradient;
+\end{enumerate}
+\item
+The gradient of concentration of charged species will establish a localized self-generated electrical field around the motor. Then, the electrical field will cause the motion of ions. The motion of ions will cause the motion of fluid which in turn will cause the motion of motor and change the distribution of charged species. Therefore, electrical field, motion of ions, fluid field and motion of motor are all coupled together and consist a self-phoresis system.
+\item Governing Equations
+\begin{enumerate}
+\item
+Transportation of charged species Part\\
+The convection of charged species consist of two parts: one is advection and another is migration of particle itself:
+\begin{equation}
+\v j=\v j_{adv}+\v j_{mig}=C\v u-\nu C \nabla \mu
+\end{equation}
+where $\nu$ is the mobility and $\mu$ is electrochemical potential which is defined as
+\begin{equation}
+\mu=RT\ln C + z F \phi
+\end{equation}
+Combined with conservation of particles and impressible condition, it will give advection-diffusion equation:
+\begin{equation}
+\v u \cdot \nabla C_i=\nabla\cdot(D_i \nabla C_i + z_i F \nu_i C_i \nabla \phi)
+\end{equation}
+\item Electrostatic Part\\
+Poisson equation:
+\begin{equation}
+\nabla^2\phi=-\frac{\rho_e}{\epsilon_0\epsilon_r}
+\end{equation}
+\item Fluid flow Part\\
+Stokes equation:
+\begin{equation}
+\eta \nabla^2\v u -\nabla P=\rho_e \nabla \phi
+\end{equation}
+\end{enumerate}
+\item Boundary conditions\\
+Two points I want to record about this part. 
+\begin{enumerate}
+\item
+The boundary condition of electrical potential near the surface of motor\\
+The author utilize the Gouy-Chapman-Stern model which defines the concept of \textbf{stern layer} and \textbf{diffuse layer}, whose characteristic length are $\lambda_s$ and $\lambda_D$ respectively. The author define the boundary condition of electrical potential not at the surface of motor but at the stern layer.
+\item
+The boundary condition of charged species at electrodes\\
+The author also introduced a seperate set of equation to simulate the chemical reaction at the surface of motor which couples the electrical potential with the chemical reaction rate. However, it seems to introduce unnecessary complexities in my opinion.
+\end{enumerate}
+\end{enumerate}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
