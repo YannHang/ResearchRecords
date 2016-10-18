@@ -174,6 +174,7 @@
 \newexperiment{Paper000014}[Nano/Microscale motors: biomedical opportunities and challenges]{Nano/Microscale motors: biomedical opportunities and challenges\cite{Wang2012}}
 \newexperiment{Paper000015}[Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors]{Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors\cite{ChiangVelegol2014}}
 \newexperiment{Paper000016}[Electrokinetic Locomotion]{Electrokinetic Locomotion\cite{Moran2013}}
+\newexperiment{Paper000017}[Catalytically driven colloidal patterning and transport]{Catalytically driven colloidal patterning and transport\cite{Kline2006}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -737,6 +738,28 @@ The boundary condition of charged species at electrodes\\
 The author also introduced a seperate set of equation to simulate the chemical reaction at the surface of motor which couples the electrical potential with the chemical reaction rate. However, it seems to introduce unnecessary complexities in my opinion.
 \end{enumerate}
 \end{enumerate}
+\labday{Monday, 17 October 2016}
+\experiment{Paper000017}
+It should be the third time to read this paper and this time I think I get the points I want. Discard the discussion and experimental setup in this paper, the most essential part of this paper states as following:\\
+Usual flux term consists of three part:
+\begin{equation}
+\v J_i=-D_i \nabla n_i +z_i e n_i \v E \mu_i + \v v n_i
+\end{equation}
+Neglect the advection term then electrostatic part could be decoupled with fluid part. Using the conservation of flux and poisson equation for electrostatic interaction, 
+\begin{equation}
+\begin{aligned}
+\nabla \cdot \v J_i &=0\\
+\nabla^2 \psi &= \frac{-\rho_f}{\epsilon}
+\end{aligned}
+\end{equation}
+Given appropriate boundary conditions within the double layer, the solution for static case could easily be given. Then do first order perturbation upon the zeroth order approximation, the solution could given the relation between flux and electrical field in first order approximation. It looks like this:
+\begin{equation}
+E=\frac{J kT}{2eDn}
+\end{equation}
+As for the outer space solutoin, that would be trivial with the inner space solution is given.
+
+\labday{Tuesday, 18 October 2016}
+\experiment{Paper000013}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
