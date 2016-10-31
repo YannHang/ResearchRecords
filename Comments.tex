@@ -140,7 +140,7 @@
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
 
 \input{header_PhyWork_Pure.tex}% external physics command support
-
+\graphicspath{{./pic/}}% set for path of pictures
 %----------------------------------------------------------------------------------------
 %	DEFINITION OF EXPERIMENTS
 %----------------------------------------------------------------------------------------
@@ -776,6 +776,23 @@ Come back to the research side. In this weekend, there holds the fifth national 
 
 \labday{Monday, 24 October 2016}
 I further modified my model in COMSOL. Another group of numerical simulation shows that the simulation results agree pretty well with analytic results. However, there exist significant errors for very small aspect ratio. The coresponding results of small aspect ratio are totally unreasonable (even large than 2 after normalization). It means that the defined mesh is not suitable for calculating small aspect ratio case. Then, I set a very fine mesh and try to calculate again. It's very time-consuming and I guess I could obtain the results tommorrow. If things go well, I could move to the next step to check the case in confined geometry.
+
+\labday{Wednesday, 26 October 2016}
+The verification with the theoretical results in \cite{Nourhani2016} is finished. The results are shown in Fig. \ref{VoMWSIC-10-26-2016}. The numerical results show good agreement with theoretical predictions exception for the small aspect ratios. For mother with very small aspect ratios, very small mesh is needed for accurate computation. I currently don't find a good way to solve these accuracy problem. Maybe I chould ask Liu Chang for help to see whether he has any good ideas. Nonetheless, numerical results agree well with theoretical results for moderate aspect ratios. Then, I could roughly trust my modeling and specification of boundary conditions. \\
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{verification-10-26-2016.jpg}
+\caption{Verification of Moter With Source-Inert Configuration}\label{VoMWSIC-10-26-2016}
+\end{figure}
+The next step is to compare the motor speed in free speed and within channel confinement.
+
+\labday{Sunday, 30 October 2016}
+When I model the moter within channel, the calculation results (Fig. \ref{ALSTEFL-10-26-2016}) show that there is a line(around pos=0.3/0.75) which seperates the upper part of electrical field and lower part of electrical field. I don't know how to determine the postion of this line or whether it is important for motor speed. I think it more or less relates to the geometry of motor as I set the unifomr charge density on the surface of motor.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{line-10-30-2016.png}
+\caption{A line seperates the electrical field lines}\label{ALSTEFL-10-26-2016}
+\end{figure}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
