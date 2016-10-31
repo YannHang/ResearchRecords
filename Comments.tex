@@ -175,6 +175,7 @@
 \newexperiment{Paper000015}[Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors]{Localized Electroosmosis (LEO) Induced by Spherical Colloidal Motors\cite{ChiangVelegol2014}}
 \newexperiment{Paper000016}[Electrokinetic Locomotion]{Electrokinetic Locomotion\cite{Moran2013}}
 \newexperiment{Paper000017}[Catalytically driven colloidal patterning and transport]{Catalytically driven colloidal patterning and transport\cite{Kline2006}}
+\newexperiment{Paper000018}[Self-propulsion of a catalytically active particle near a planar wall: from reflection to sliding and hovering]{Self-propulsion of a catalytically active particle near a planar wall: from reflection to sliding and hovering\cite{Uspal2015}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -781,7 +782,7 @@ I further modified my model in COMSOL. Another group of numerical simulation sho
 The verification with the theoretical results in \cite{Nourhani2016} is finished. The results are shown in Fig. \ref{VoMWSIC-10-26-2016}. The numerical results show good agreement with theoretical predictions exception for the small aspect ratios. For mother with very small aspect ratios, very small mesh is needed for accurate computation. I currently don't find a good way to solve these accuracy problem. Maybe I chould ask Liu Chang for help to see whether he has any good ideas. Nonetheless, numerical results agree well with theoretical results for moderate aspect ratios. Then, I could roughly trust my modeling and specification of boundary conditions. \\
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth, height=3in]{verification-10-26-2016.jpg}
+\includegraphics[width=\linewidth, height=3in]{2016-10-26-verification.jpg}
 \caption{Verification of Moter With Source-Inert Configuration}\label{VoMWSIC-10-26-2016}
 \end{figure}
 The next step is to compare the motor speed in free speed and within channel confinement.
@@ -790,9 +791,34 @@ The next step is to compare the motor speed in free speed and within channel con
 When I model the moter within channel, the calculation results (Fig. \ref{ALSTEFL-10-26-2016}) show that there is a line(around pos=0.3/0.75) which seperates the upper part of electrical field and lower part of electrical field. I don't know how to determine the postion of this line or whether it is important for motor speed. I think it more or less relates to the geometry of motor as I set the unifomr charge density on the surface of motor.
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth, height=3in]{line-10-30-2016.png}
+\includegraphics[width=\linewidth, height=3in]{2016-10-30-line.png}
 \caption{A line seperates the electrical field lines}\label{ALSTEFL-10-26-2016}
 \end{figure}
+
+\labday{Monday, 31 October 2016}
+\experiment{Paper000018}
+This paper investigate the behavior of source/inert motor near plane wall. It considers both the translational motion and rotational motion of motor. Actually, the supplementary material of this paper is much useful for me. It presents the numerical method to solve this problem. Under infinitesimal thin EDL approximation, the gradient field could be decoupled from fluid field. Thus, we could solve the gradient field firstly (typically it's a Laplace equation). While, the boundary conditions of fluid field depends on the gradient field, we need substitute results into the fluid part. However, we care about the velocity of motor which should be determined by force and torque balance. Directly solving the motor velocity is not easy.\\
+The author presents that we could utilize Lorentz reciprocal theorem in Stokes flow to circumvent this difficulty. Construct some dual problems could be easily calculated and express our target problem by these dual problems' solution. In the case given by this paper, the solution of motor translational velocity and angular velocity could be expressed as the solution of a linear system. This provides me a good hint that how to calculate dynamics of motor in 3d space. It will be useful when I am ready to discuss force and torque balance of motor.
+\\
+Another thing need to mention is about numerical calculation. I calculated the case for source/inert motor within channel confinement. However, unlike the case for source/sink motor, source/inert motor doesn't show significant speed up within channel and it even decreases speed within channel. I still not very confident about this conclusion. These are some points need to clarify:
+\begin{enumerate}
+\item
+The boundary condition for channel wall. I currently use electroosmostic boundary condition for channel wall. But I am not quiet sure the sign of mobility for wall.
+\item
+The numerical accuracy. I run computation several times with different mesh size. Sometimes auto-generated mesh will break down. Manual-generated mesh would be fine but the results seem sensitive to mesh size. I can't confirm the accuracy of my results. I need to find a analytic results for comparision.
+\item
+I also plot the electrical field and velocity field for source/inert motor. It shows totally different features compared with source/sink motor. These two figures are shown below:
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{2016-10-31-electrical-field.png}
+\caption{Electrical Field Lines}\label{2016-10-31-EFL}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{2016-10-31-velocity-field.png}
+\caption{Velocity Field Lines}\label{2016-10-31-VFL}
+\end{figure}
+\end{enumerate}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
