@@ -807,7 +807,7 @@ The boundary condition for channel wall. I currently use electroosmostic boundar
 \item
 The numerical accuracy. I run computation several times with different mesh size. Sometimes auto-generated mesh will break down. Manual-generated mesh would be fine but the results seem sensitive to mesh size. I can't confirm the accuracy of my results. I need to find a analytic results for comparision.
 \item
-I also plot the electrical field and velocity field for source/inert motor. It shows totally different features compared with source/sink motor. These two figures are shown below:
+I also plot the electrical field (Fig. \ref{2016-10-31-EFL}) and velocity field (Fig. \ref{2016-10-31-VFL}) for source/inert motor. It shows totally different features compared with source/sink motor. These two figures are shown below: 
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth, height=3in]{2016-10-31-electrical-field.png}
@@ -817,6 +817,40 @@ I also plot the electrical field and velocity field for source/inert motor. It s
 \centering
 \includegraphics[width=\linewidth, height=3in]{2016-10-31-velocity-field.png}
 \caption{Velocity Field Lines}\label{2016-10-31-VFL}
+\end{figure}
+\end{enumerate}
+
+\labday{Tuesday, 1 November 2016}
+Prepare Thesis Proposal. Basic Information is recorded below:
+\begin{itemize}
+\item Title: Artificial Microswimmer under spatial confinement
+\item Supervisor: Prof. Zhang, Hepeng \& Prof. Xing, Xiangjun
+\end{itemize}
+
+\labday{Wednesday, 2 November 2016}
+\experiment{Fourth Associated Group Meeting of Soft Matter, 2016 Autumn}
+Title: First Passage Time Problems\\
+Speaker: Yang, Xiang\\
+This is the second time to hear this talk. I first hear this talk in Prof. Zhang's group meeting. The first passage time concerns the time of an random event first happening and is a very interesting problem which is worth endeavouring. First passage time is a very important concept in various fields, for example we may how long is needed for a particle move from position A to position b within a cell, how long will a neurotransmitter started from position A to the surface of  synapses then stimulate the signal or how long the price of one stock will fall in the stock market, etc. In my opinion, the concept of mean first passage time have a wide range of application in both nature and socioty. \\
+The concept of mean first passage time(MFPT) is illustrated by the diffusion in 1D infinite system. The activation of an event is substituted by the absorbing boundary. The core equality which defined the distribution of MFPT is: the time derivative of survival probability(the integration of current probability density in whole space) is equal to the flux at absorbing boundary. Using image method could easily give the solution of 1D infinite system. Then, Yang Xiang discussed the case in higher dimension of infinite and finite system. Pay special attention to the fractal system where characteristic time scale could be related to the fractal dimension and walk dimension.
+
+\labday{Thursday, 3 November 2016}
+Two recent numerical results.
+\begin{enumerate}
+\item
+The comparsion between motor speed in free space and in channel confinement.\\
+As shown in Fig. \ref{2016-11-3-MSC}, the motor under channel confinement shows little speed up even speed down. The numerical errors make the point of aspect ratio 0.1 is excluded. However, consider the case of source/sink which shows speed up to five times, this result shows source/inert motor differs with source/sink significantly if the result is trustworthy. I want to inspect my modeling careful and theories I based on because I am still not sure about this calculation.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{2016-11-3-Channel.jpg}
+\caption{Motor Speed Comparison}\label{2016-11-3-MSC}
+\end{figure}
+\item The motor speed with different degree of confinement.\\
+As shown in Fig. \ref{2016-11-3-MSUCWDW}, the motor speed doesn't change significantly until channel width reaches around $1\mu m$. In the extreme confinement case ($0.5\mu m$), motor speed does inscrease significantly. However, in such a small confinement, my model may not be valid and I am suspicious about this result. It shows channel confinement speeds motor up which contradicts with previous case. I am wondering whether significant speed up will only occur in very small channel. I will check this suspect soon.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{2016-11-3-diff-channel-width.jpg}
+\caption{Motor Speed Under Channel with Different Width}\label{2016-11-3-MSUCWDW}
 \end{figure}
 \end{enumerate}
 %----------------------------------------------------------------------------------------
