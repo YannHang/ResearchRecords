@@ -675,7 +675,7 @@ The dynamics of motor (Force balance, Induced torque and so on)
 \end{enumerate}  
 \labday{Friday, 14 October 2016}
 \experiment{Bimetallic microswimmers speed up in confining channels}
-This our group's recent submitted PRL investigated the motor speed under channel confinement. Normalize motor speed under channel confinement with motor speed in free space, it shows that normalized motor speed is insensitive to surface flux, fuel concentration. The speed up of motor is attributed to two factors: 
+This our group's recent submitted PRL\cite{Liu2016} investigated the motor speed under channel confinement. Normalize motor speed under channel confinement with motor speed in free space, it shows that normalized motor speed is insensitive to surface flux, fuel concentration. The speed up of motor is attributed to two factors: 
 \begin{itemize}
 \item one is the electrostatic interaction between wall and motor (squezzing the electrical line and cause higher electrical potential gradient);
 \item another is the electro-hydynamical interactions between wall and motor. The self-generated electrical field will cause electroosmostic flow near the surface of channel wall and the "back-ward" electroosmostic flow will faciliate the movement of motor.
@@ -908,6 +908,230 @@ This is strange. Whether speed up will only occur in very tight spatial confinem
 
 \labday{Sunday, 6 November 2016}
 \experiment{Report 1 - Review from Sep. 19, 2016 to Nov. 5, 2016}
+\section*{Introduction}
+After approximate two months of work, it's time to summarize my current understanding of problem, discuss results and set up plan for next stage of research. The last two months, my main focus is to read relevant literatures about my thesis. I start from some "ancient" papers about motion of charged colloid under external electrical field to obtain some general theoritical framework. Also I read several papers about microswimmers to know some histories and general ideas in this field. Then, I mainly refer to papers of Velegol et al. and our group's paper to get some concepts and details related to the bimetallic motor I concern about. At the mean time, I also establish the numerical model for source/inert configuration motor in COMSOL with the reference to Liu Chang's model and do verification and some computations for source/inert motor in confined channel.\\
+To sum up, I don't cover many literatures in this field before the thesis proposal as expected. While the numerical modeling costs less time than I expected because of Liu Chang's previous work. Now I begin to have some basic understanding of my thesis ( although limited) and I am ready to my stage of research.
+\section*{Description}
+Based on phenomenon of source/sink motor speed up in confined channel discoveried by our group\cite{Liu2016}, consider the corresponding case for source/inert motor. The work roughly divides into two parts:
+\begin{enumerate}
+\item
+Verify the numerical model for source/inert motor in free space by comparing results with analytic expression in the paper of Nourhani and Lammert\cite{Nourhani2016}.
+\item
+Consider the numerical model for source/inert motor in confined channel
+\end{enumerate}
+\section*{Method}
+In this section, I will list some key assumptions in my current model.
+\subsection*{Theory}
+\subsubsection{Surface of motor}
+This part is based on Gouy-Chapman-Stern model. As shown in Fig. \ref{2016-11-13-GCSMFIIE}, the solution could be divided into three parts: Stern layer, Diffusion layer and Bulk solution. Typically, 
+\begin{itemize}
+\item The Stern layer has length scale of order of \AA \ which is fixed with motor surface.
+\item The diffusion layer has length scale of order of several hundreds of nanometers (Debye length) for the case in hydrogen peroxide, which is cation-rich for negatively charged motor surface. 
+\item The region beyond Stern layer and diffusion layer is the bulk solution which could be regarded as neutral.
+\end{itemize}
+In the paper \emph{Catalytically driven colloidal patterning and transport}\cite{Kline2006}, authors employ Nernst-Plank equation:
+\begin{equation}
+\v J_i=-D_i \nabla n_i + z_ien_i\v E_i \mu_i + \v v n_i
+\end{equation}
+and Poisson equation for electrostatic part:
+\begin{equation}
+\nabla^2\psi=-\frac{\sum_i z_i e n_i}{\epsilon}
+\end{equation}
+to solve the electrical field and particle concentration distribution within diffusion layer. \\
+\emph{Ignore the convection term in flux and regard the chemical reaction on the motor surface as small perturbation}, the first-order perturbation could give the solution of above equations within diffusion layer which connnects surface activities ($\v J_i$) with electrical field $\v E$ at the outer edge of diffusion layer:
+\begin{equation}
+\v E = \frac{\v J k T}{2e D n_0}
+\end{equation}
+\subsubsection{Motor Speed in free space}
+Antoher work in paper \emph{Geometrical Performance of Self-Phoretic Colloids and Microswimmers}\cite{Nourhani2016} express the motor speed in surface integration of surface activities:
+\begin{equation}
+U=\uv{e}_z \frac{-\mu_{ph}}{2D}\int_{-1}^1 K(\eta;a/b)\Gamma(\eta)\mathrm{d}\eta
+\end{equation}
+where
+\begin{equation}
+K(\eta;a/b)=\frac{\eta}{\sqrt{\eta^2+(a/b)^2(1-\eta^2)}}
+\end{equation}
+and
+\begin{equation}
+\Gamma=-D\uv n \cdot \nabla \gamma
+\end{equation}
+$\gamma$ is a possible field(like electrical field, concentration field) and $D$ is the constant corresponding to it (like diffusion constant).\\
+Thus, I apply this result to my model with previous approximation. \emph{Regard $\gamma$ as electrical potential $\phi$, then $\Gamma$ is the electrical field $\v E$ at the outer edge of diffusion layer.} It means that I actually set the boundary of model at the outer edge of diffusion layer but not the surface of motor. However, as long as the approximation of infinitesimal electrical double layer is valid, I still accept this approximation is reasonable.\\
+With this simplifiction, \emph{all the calculation domain should be neutural}. Thus, there is no need to consider the transportation of ions.
+\subsubsection{Electroosmosis Flow}
+However, the electroosmosis flow must be taken into consideration for correct calculation in confined space \cite{ChiangVelegol2014}. If the solution is neutral, electroosmosis cannot happen. This electroosmosis only happens within the diffusion layer. Then, the moving of ions within diffusion layer will result in the flow in bulk solution which is the electroosmosis flow I refer to in the section title. \\
+Because I apply the thin EDL approximation, there is no diffusion layer in calculation domain. The effect caused by electroosmosis flow must reflect by appropriate boundary conditions. Therefore, both boundary conditions in channel wall and motor surface should be electroosmosis boundary condition which requires that fluid velocity should be propotional to tangential electrical field:
+\begin{equation}
+\v v_{eo}=\mu \v E_t
+\end{equation}
+where $\mu$ is the corresponding mobility and is propotional to zeta potential.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=6in]{2016-11-13-Interface.jpg}
+\caption{Gouy-Chapman-Stern model for Interface in Electrolyte}\label{2016-11-13-GCSMFIIE}
+\end{figure}
+
+\subsection*{Computation}
+With above consideration, the details of my numerical model in COMSOL are following:
+\subsubsection{Electrostatic Part}
+\begin{itemize}
+\item Governing equation (no charge in bulk) :
+\begin{equation}
+\nabla^2\psi=0
+\end{equation}
+\item Boundary conditions:
+\begin{enumerate}
+\item
+Constant charge density condition for active surface of motor
+\begin{equation}
+\sigma=constant
+\end{equation}
+\item
+Zero charge density condition for inert surface of motor
+\begin{equation}
+\sigma=0
+\end{equation}
+\item
+Zero charge condition for channel wall and bulk solution
+\begin{equation}
+\rho=0
+\end{equation}
+\item
+Zero potential condition for outer edge of simulation domain
+\begin{equation}
+\psi=0
+\end{equation}
+\end{enumerate}
+\end{itemize}
+\subsubsection{Fluid Part}
+\begin{itemize}
+\item Governing equation:
+\begin{equation}
+\eta \nabla^2 \v u = \nabla P
+\end{equation}
+\begin{equation}
+\nabla \cdot \v u =0
+\end{equation}
+\item Boundary conditions:
+\begin{enumerate}
+\item
+Electroosmosis condition for channel wall:
+\begin{equation}
+\v u = \mu_{wall} \v E_t
+\end{equation}
+\item
+Electroosmosis+motor speed for motor surface:
+\begin{equation}
+\v u = \mu_{motor} \v E_t + v_{motor}
+\end{equation}
+\item
+No slipping condition for outer edge of simulation domain:
+\begin{equation}
+\v u =0
+\end{equation}
+\end{enumerate}
+\end{itemize}
+\section*{Result}
+I did several calculations with above defined problem. Results are summerized below:
+\subsection*{Verification}
+The first is the verification of my numerical model. I do a comparision for source/inert motor in free space as shown in Fig. \ref{2016-11-13-CBNRAAR}. It shows good agreement as long as the aspect ratio is not too small. (For small aspect ratio, the mesh cannot work well). This results support above assumptions I made in my model.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3in]{2016-10-26-verification.jpg}
+\caption{Comparision Between Numerical Results and Analytic Results}\label{2016-11-13-CBNRAAR}
+\end{figure}
+\subsection*{Add Channel For Source/Inert Motor}
+With above confirmation, I add a channel wall into my model and compare it with results in free space as shown in Fig. \ref{2016-11-13-CBFACC}. Unlike source/sink motor shows significant speed up, source/inert motor does not show significant speed up. Note that here I choose channel width as $1.5 \mu m$.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-eta-0.jpg}
+\caption{Comparision Between Free and Confined Case}\label{2016-11-13-CBFACC}
+\end{figure}
+\subsection*{Speed Change Under Different Channel Width}
+In order to check speed change of source/inert motor under channel confinement, I plot the motor speed vesus different channel width as shown in Fig. \ref{2016-11-13-SCUDCW}. This result makes me confused. The motor does show speed up for very narrow channel (less than 1 $\mu m$) while does not show significant speed up for relatively wide channel (large than 1 $\mu m$). \\
+Another point is that I think I have chosen very fine mesh for calculation. However, I can't obtain a smooth curve like the one for source/sink motor\cite{Liu2016}. I will confirm this further.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-DiffCWidth.png}
+\caption{Speed Change Under Different Channel Width}\label{2016-11-13-SCUDCW}
+\end{figure}
+\subsection*{Comparison between Source/Sink and Source/Inert}
+In order to understand the different behavior between source/inert and source/sink motor, I compare their localized electrical field and fluid field.
+\subsubsection*{Electrical Field and Fluid Field $(\zeta_{motor}=-50mV \zeta_{wall}=-50 mV)$}
+\begin{itemize}
+\item Source/Sink Motor (Fig. \ref{2016-11-13-EFOSSM} and Fig. \ref{2016-11-13-FFOSSM}):
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-E.png}
+\caption{Electrical Field of Source/Sink Motor}\label{2016-11-13-EFOSSM}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-V.png}
+\caption{Fluid Field of Source/Sink Motor}\label{2016-11-13-FFOSSM}
+\end{figure}
+\item Source/Inert Motor(Fig. \ref{2016-11-13-EFOSIM} and Fig. \ref{2016-11-13-FFOSIM}):
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-E.png}
+\caption{Electrical Field of Source/Inert Motor}\label{2016-11-13-EFOSIM}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-V.png}
+\caption{Fluid Field of Source/Inert Motor}\label{2016-11-13-FFOSIM}
+\end{figure}
+\end{itemize}
+\subsubsection*{Electrical Field and Fluid Field $(\zeta_{motor}=-50mV \zeta_{wall}= 0 mV)$}
+\begin{itemize}
+\item Source/Sink Motor $(\zeta_{motor}=0)$ (Fig. \ref{2016-11-13-EFOSSMM0} and Fig. \ref{2016-11-13-FFOSSMM0})
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-E-Osmosis.png}
+\caption{Electrical Field of Source/Sink Motor $(\zeta_{motor}=0)$}\label{2016-11-13-EFOSSMM0}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-V-Osmosis.png}
+\caption{Fluid Field of Source/Sink Motor $(\zeta_{motor}=0)$}\label{2016-11-13-FFOSSMM0}
+\end{figure}
+\item Source/Inert Motor $(\zeta_{motor}=0)$ (Fig. \ref{2016-11-13-EFOSIMM0} and Fig. \ref{2016-11-13-FFOSIMM0})
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-E-Osmosis.png}
+\caption{Electrical Field of Source/Inert Motor $(\zeta_{motor}=0)$}\label{2016-11-13-EFOSIMM0}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-V-Osmosis.png}
+\caption{Fluid Field of Source/Inert Motor $(\zeta_{motor}=0)$}\label{2016-11-13-FFOSIMM0}
+\end{figure}
+\end{itemize}
+\subsubsection*{Electrical Field and Fluid Field $(\zeta_{motor}=0 mV \zeta_{wall}=-50 mV)$}
+\begin{itemize}
+\item Source/Sink Motor $(\zeta_{wall}=0)$ (Fig. \ref{2016-11-13-EFOSSMW0} and Fig. \ref{2016-11-13-FFOSSMW0})
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-E-Motor.png}
+\caption{Electrical Field of Source/Sink Motor $(\zeta_{wall}=0)$}\label{2016-11-13-EFOSSMW0}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceSink-V-Motor.png}
+\caption{Fluid Field of Source/Sink Motor $(\zeta_{wall}=0)$}\label{2016-11-13-FFOSSMW0}
+\end{figure}
+\item Source/Inert Motor $(\zeta_{wall}=0)$ (Fig. \ref{2016-11-13-EFOSIMW0} and Fig. \ref{2016-11-13-FFOSIMW0})
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-E-Motor.png}
+\caption{Electrical Field of Source/Inert Motor $(\zeta_{wall}=0)$}\label{2016-11-13-EFOSIMW0}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-13-SourceInert-V-Motor.png}
+\caption{Fluid Field of Source/Inert Motor $(\zeta_{wall}=0)$}\label{2016-11-13-FFOSIMW0}
+\end{figure}
+\end{itemize}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
