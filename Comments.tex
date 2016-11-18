@@ -1154,6 +1154,23 @@ I check the possibility of errors caused by scale. Because my model dimension is
 \item
 If the problem still cannot be solved, what other factors could be possible reasons? Errors come from where? I don't know yet. However, one thing is for sure: all my previous results are not reliable... I have to check and analyse previous work again to make sure my previous conclusions are correct... That is a sad story. 
 \end{enumerate}
+
+\labday{Thursday, 17 November 2016}
+The results support my hypothesis to some extend. The results of larger aspect ratio (here I set it to 6, the same as Liu Chang's model) show better agreement with results in paper\cite{Liu2016}. It strengthens my confidence that errors are caused by the spheroid boundary in my model while the boundary of in Liu's model is just straight line. I guess COMSOL is not good at handling curved boundary.\\
+In order to check my guess. I will do two simulations today:
+\begin{enumerate}
+\item
+Change the aspect ratio of Liu's model to small value, from 6 to 2; To check whether results would be still consistent with results with large aspect ratio
+\item
+Change the boundary of my model to rectilinear case. To check whether results would be consistent with Liu's results
+\end{enumerate}
+I swear I will find the problem!!!
+
+\labday{Friday, 18 November 2016}
+I have to admit that yesterday's two numerical experiments both failed. The first one is approximately consistent with previous resutls. It confirms Liu's model; The second one still exhibits few irrugularities which are not expected. I previously thought the reason is because I specified a discontinuous boundary condition. I almost convinced myself to this explanation. However, today's results don't support this. That would be terrible.\\
+I have another possble explanation to check: the extra point on rectilinear boundary inserted in my model. I have no better guess now although I don't expect too much on this test.\\
+!!!!!!!! Oh my god! How could this be? This most unlikely explanation solve my problem!!! How could an extra point affects results in such a significant way in COMSOL??? CAN'T BELIEVE IT. Finally, my results become reasonable. For safety, I plan to check this model further to avoid similar mistake! \\
+Now, I can enjoy my nice weekend! 
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
