@@ -1170,7 +1170,41 @@ I swear I will find the problem!!!
 I have to admit that yesterday's two numerical experiments both failed. The first one is approximately consistent with previous resutls. It confirms Liu's model; The second one still exhibits few irrugularities which are not expected. I previously thought the reason is because I specified a discontinuous boundary condition. I almost convinced myself to this explanation. However, today's results don't support this. That would be terrible.\\
 I have another possble explanation to check: the extra point on rectilinear boundary inserted in my model. I have no better guess now although I don't expect too much on this test.\\
 !!!!!!!! Oh my god! How could this be? This most unlikely explanation solve my problem!!! How could an extra point affects results in such a significant way in COMSOL??? CAN'T BELIEVE IT. Finally, my results become reasonable. For safety, I plan to check this model further to avoid similar mistake! \\
-Now, I can enjoy my nice weekend! 
+Now, I can enjoy my nice weekend! \\
+The decisive results are recorded below in Fig. \ref{2016-11-18-ROMWOEP} and Fig. \ref{2016-11-18-ROMWTP}. One point spoiled everything...
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-18-SourceSink.png}
+\caption{Result of model with one extra point}\label{2016-11-18-ROMWOEP}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=3.5in]{2016-11-18-SourceSink-New.png}
+\caption{Result of model without that point}\label{2016-11-18-ROMWTP}
+\end{figure}
+
+\labday{Sunday, 20 November 2016}
+I rewrite my model and unify the cases for both source/inert configuration and source/sink configuration. Also, replace all discontinuous boundary conditions with continuous approximation. Introduce parameters for controlling various proportion of catalytic surface. I plan to recheck all my previous results with my fixed model in two days. Some experiments for today:
+\begin{enumerate}
+\item
+Compute Source/Sink Rectangular Motor Speed Under Various Channel Confinement\\
+Purpose: Compare with Liu Chang's Results\\
+Calculation Finished. Data will be processed tomorrow.
+\item
+Compute Source/Sink Rectangular Motor Speed Under A fixed Channel Width with Different Mesh Accuracy.\\
+Purpose: Check whether results converge with different mesh accuracy\\
+Calculation Finished. Data will be processed tomorrow.
+\item
+Compute Source/Inert Spheroid Motor Speed With Different Aspect Ratio\\
+Purpose: Compare with Analytic Result\\
+Calculation In Progress.
+\item
+Compute Source/Inert Spheroid Motor Speed Under Various Channel Confinement\\
+Purpose: Check Influence of channel confinement upon motor speed\\
+Postpone to tomorrow.
+\end{enumerate}
+
+One major understanding of today's work is: boundary layer is crucial for the stability of numerical result. Numerical result must make sense in physics firstly.
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
