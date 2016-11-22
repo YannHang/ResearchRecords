@@ -1226,6 +1226,15 @@ Mesh Independence Test. I want to make sure numerical result is independent of m
 \item A mistake found. Solved. Re-calculation in progress.
 \item Calculation did not converge... postponed.
 \end{enumerate}
+
+\labday{Tuesday, 22 November 2016}
+Analytic verification of spheroid motor with Source/Inert configuration in free space finished. The result is shown in Fig. \ref{2016-11-22-BWASIFS}. Numerical result agrees well with analytic result in the region where aspect ratio is larger than 1.5. For the region where aspect ratio is smaller than 1.5, the results seem unstable. Some calculation parameters are recorded here for later reference: $b=0.15 \mu m$, $a=ratio*b$, $MeshFactor=4$.\\
+I still cannot accurately calculate the region where aspect ratio is smaller than 1.5. In that region, the geometry is too small and current mesh cannot work well. However, the result confirm the validity of my model in most common region where experiment would be carried on. Thus, I will move on and leave this problem unsolved.
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth, height=4in]{2016-11-22-AnalyticVerification_Free.png}
+\caption{Benchmark with analytic solution in free space}\label{2016-11-22-BWASIFS}
+\end{figure}
 %----------------------------------------------------------------------------------------
 \end{addmargin}
 %----------------------------------------------------------------------------------------
