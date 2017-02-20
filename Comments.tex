@@ -139,6 +139,7 @@
 
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
 
+\usepackage{mathrsfs, euscript} % Support command like \mathscr
 \input{header_PhyWork_Pure.tex}% external physics command support
 \graphicspath{{./pic/}}% set for path of pictures
 %----------------------------------------------------------------------------------------
@@ -179,6 +180,7 @@
 \newexperiment{Paper000019}[Understanding the efficiency of autonomous nano- and microscale motors]{Understanding the efficiency of autonomous nano- and microscale motors\cite{Wang2013}}
 \newexperiment{Paper000020}[Hierarchical organization of chiral rafts in colloidal membranes]{Hierarchical organization of chiral rafts in colloidal membranes\cite{Sharma2014}}
 \newexperiment{Paper000021}[Colloid Transport by Interfacial Forces]{Colloid Transport by Interfacial Forces\cite{Anderson1989}}
+\newexperiment{Paper000022}[Phoretic Self-Propulsion]{Phoretic Self-Propulsion\cite{MoranPosner2017}}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -604,7 +606,7 @@ After tackling some meticulous affairs, now I am ready to switch myself into res
 
 \labday{Tuesday, 22 September 2016}
 \experiment{Three Talks given by Peter H{\"a}nggi}
-What a coincidence could meet with Peter H{\"a}nggi again in my university. During my visit in NUS, Peter collaborated with Deng Jiawen to write a paper about Jarzynski equality\cite{Jarzynski1997a}. The central idea of their work is pretty simple and straightforward. They want to illustrate a case which the ensemble average of exponential work in Jarzynski equality will be divergent even in adiabatic limit. Then, the ensemble average of exponential work will be divergent for all processes( include non-adiabatic processes). They showed this situation in classic case and verified it with numerical examples. That's all I want to recall about Peter in singapore. \\
+What a coincidence could meet with Peter H{\"a}nggi again in my university. During my visit in NUS, Peter collaborated with Deng Jiawen to write a paper about Jarzynski equality\cite{Jarzynski1997}. The central idea of their work is pretty simple and straightforward. They want to illustrate a case which the ensemble average of exponential work in Jarzynski equality will be divergent even in adiabatic limit. Then, the ensemble average of exponential work will be divergent for all processes( include non-adiabatic processes). They showed this situation in classic case and verified it with numerical examples. That's all I want to recall about Peter in singapore. \\
 This time in my university, Peter gave a talk about Brownian motion in Zhiyuan Salon and another two talks about diffusion in confined geometry \cite{burada2009diffusion} for Zhang Hepeng's group. The talk given in Zhiyuan Salon is pretty general and I didn't get too much in this talk. Thus, I mainly want to record something I learnt from last two talks.\\
 To describe the motion of small particles in fluid, the most straightforward idea is to solve the equations of motion of all particles in the system. However, that's too complicated to solve. In order to simplify the problem, a random noise could be added to the equation of motion to replace the coupling with external environment. That's the view of Langevin. This idea is still Newton-like and the trace of single particle is crucial in this theory. On the contrary, the idea of Fork-Plank thoery gave up the idea to trace each particle individually. The Fork-Plank equation cares about the possiblity. These two ideas are equivalent.\\
 Peter mainly focused on the diffusion in confined geometry during these two talks. From my point of view, the mathematics involved in this problem is not very difficult. Just solve the Fock-plank equation with confined boundary conditions. Maybe it is not easy to solve. Then apply some approximation method and check the validity of this approximation. If the approximation is valid, then derived the relevant properties in this situation such diffusion constant or mobility. Perhaps, we check the theory proposed by Peter using numerical tools and then do some modifications. At last, we could check the theory via experimental method. It's a pretty prospective road map. \\
@@ -1470,8 +1472,949 @@ When $\eta_0=0$, Source/Sink motor speed is still exactly two times of Source/In
 \end{figure}
 \end{enumerate}
 Many problems need to be answered. I will summerize my current finished calculation results tomorrow. Hope it could help me realize my current problem more clearly.
-\labday{Friday, 13 January 2017}
-
+\labday{Monday, 20 February, 2017}
+\experiment{Report 2 - Winter Vacation Progress From Jan. 17, 2017 to Feb. 17, 2017}
+\section{Introduction}
+Inspired by the work\cite{MozaffariSharifi-MoodKoplikEtAl2016}\cite{LeeLeal1980} which solved the motion of spherical active colloidal near solid wall analytically, I was wondering whether I could solve the motion of spheroidal active motor near solid wall. A key method applied in that paper is the author chose an uncommon coordinate system-bispherical coordinate system which naturally matches the geometry of spherical Janus particle confined by solid wall. Then I referred to \cite{MorseFeshbach1953} and \cite{MoonSpencer1988}, I first knew that there are many other orthogonal coordinate system. When I saw the prolate coordinate system, I knew that it was the one I am looking for to solve spheroidal active motor related problem, at least, in free space. To kill my boring time, I try to solve the motion of spheroid active motor in free space analytically. The solution of this problem could be generally divided into two parts: electrostatic part and hydrodynamic part. The electrostatic part needs to solve Laplace equation. Those who did field theory had solved the general solution of Laplace equation under prolate spheroidal coordinate long ago. All I need to do is to specify correct boundary condition. As for the hydrodynamic part, I need to solve creeping flow equation under prolate spheroidal coordinate. Fortunately, this problem could be solved by applying Stokes stream function\cite{HappelBrenner1983} because of the axis-symmetry of the system I want to solve. Then, I expect I could the motion of spheroidal active motor in free space. I will start from the electrostatic part.
+\section{Electrostatic Part}
+\subsection{Governing Equation}
+\begin{equation}
+\nabla^2\psi=0
+\end{equation}
+\subsection{Boundary Conditions}
+\begin{enumerate}
+\item
+The electrical potential is assume as zero at infinity, i.e.
+\begin{equation}
+\psi|_{r\rightarrow\infty}=0
+\end{equation}
+\item
+The normal component of electrical field along the motor surface is assume to be constant\cite{Kline2006}, i.e.
+\begin{equation}
+\nabla\psi \cdot \uv n = \frac{\sigma_0}{\epsilon}
+\end{equation}
+\end{enumerate}
+\section{Prolate Spheroidal Coordinate}
+This section is used for reviewing some useful properties about prolate spheroidal coordinate system.\cite{MoonSpencer1988}
+\subsection{Coordinates Symbols}
+\begin{equation}
+\left\{
+\begin{aligned}
+u^1&=\xi , 0\le\xi<\infty\\
+u^2&=\theta,0\le\theta\le\pi\\
+u^3&=\phi,0\le\phi<2\pi
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Transformation Relations}
+\begin{equation}
+\left\{
+\begin{aligned}
+x&=c\sinh\xi\sin\theta\cos\phi\\
+y&=c\sinh\xi\sin\theta\sin\phi\\
+z&=c\cosh\xi\cos\theta
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Coordinate Surfaces}
+\begin{equation}
+\left\{
+\begin{aligned}
+\frac{x^2}{c^2\sinh^2\xi}+\frac{y^2}{c^2\sinh^2\xi}+\frac{z^2}{c^2\cosh^2\xi}&=1\\
+\frac{x^2}{c^2\sin^2\theta}-\frac{y^2}{c^2\sin^2\theta}+\frac{z^2}{c^2\cos^2\theta}&=1\\
+\tan\phi&=\frac{y}{x}
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Metric Coefficients}
+\begin{equation}
+g_{11}=g_{22}=c^2(\sinh^2\xi+\sin^2\theta)\ \ g_{33}=c^2\sinh^2\xi\sin^2\theta
+\end{equation}
+\subsection{Differential Operators}
+\subsubsection{Gradient Operator}
+\begin{equation}
+\nabla=\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\left[\uv a_{\xi} \pd{}{\xi}+\uv a_{\theta}\pd{}{\theta}\right]+\frac{\uv a_{\phi}}{c\sinh\xi\sin\theta}\pd{}{\phi}
+\end{equation}
+\subsubsection{Laplace's Operator}
+\begin{equation}
+\nabla^2=\frac{1}{c^2(\sinh^2\xi+\sin^2\theta)}\left[\pdd{}{\xi}+\coth\xi\pd{}{\xi}+\pdd{}{\theta}+\cot\theta\pd{}{\theta}\right]+\frac{1}{c^2\sinh^2\xi\sin^2\theta}\pdd{}{\phi}
+\end{equation}
+\section{Separation of Laplace's Equation}
+Consider axis-symmetrical case, i.e. $\psi$ is independent of $\phi$ and assume separation of variables:
+\begin{equation}
+\psi=\Xi(\xi)\Theta(\theta)
+\end{equation}
+Then, Laplace's Equation could be reduced as:
+\begin{equation}
+\left\{
+\begin{aligned}
+\dd{\Xi}{\xi}+\coth\xi\d{\Xi}{\xi}-n(n+1)\Xi&=0\\
+\dd{\Theta}{\theta}+\cot\theta\d{\Theta}{\theta}+n(n+1)\Theta&=0
+\end{aligned}
+\right.
+\end{equation}
+The general solution of above ordinary differential equation is given by Legendre functions and the most general solution of Laplace's equation could be expressed as\cite{MoonSpencer1988}:
+\begin{equation}
+\begin{aligned}
+\psi&=\sum_{n=0}^\infty \Xi_n(\xi)\Theta_n(\theta)\\
+&=\sum_{n=0}^\infty \left[A_n \mathscr{P}_n(\cosh\xi)+B_n \mathscr{Q}_n(\cosh\xi)\right]\left[C_n\mathscr{P}_n(\cos\theta)+D_n\mathscr{Q}_n(\cos\theta)\right]
+\end{aligned}
+\end{equation}
+where $\mathscr{P}_n$ is first kind of Legendre polynomial of nth order and $\mathscr{Q}_n$ is second kind of Legendre polynomial of nth order. Their explicit expressions are recorded below for reference:
+\begin{equation}
+\mathscr{P}_n(x)=\frac{1}{2^n}\sum_{k=0}^n
+\begin{pmatrix}
+n\\
+k
+\end{pmatrix}^2
+(x-1)^{n-k}(x+1)^k
+\end{equation}
+\begin{equation}
+\mathscr{Q}_n(x)=\frac{n!}{1\cdot3\cdots(2n+1)}\left[x^{-(n+1)}+\frac{(n+1)(n+2)}{2(2n+3)}x^{-(n+3)}+\frac{(n+1)(n+2)(n+3)(n+4)}{2\cdot4\cdot(2n+3)(2n+5)}x^{-(n+5)}+\cdots\right]
+\end{equation}
+\section{Boundary Conditions}
+The next step is to match general solution to specific boundary conditions which are of interests.
+\subsection{Physical Consideration}
+$\mathscr{Q}_n(\cos\theta)$ becomes infinity at z-axis, i.e. $\theta=0, \pi$. Thus, $\mathscr(Q)_n(\cos\theta)$ term must vanish in the general solution. Then, the general solution could be simplified as:
+\begin{equation}
+\psi=\sum_{n=0}^\infty A_n \mathscr{P}_n(\cosh\xi)\mathscr{P}_n(\cos\theta)+B_n\mathscr{Q}_n(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+\subsection{Boundary Conditions at Infinity}
+The electrical potential is set as zero at infinity, i.e.
+\begin{equation}
+\psi(\xi,\theta)|_{\xi\rightarrow\infty}=0
+\end{equation}
+Note that
+\begin{equation}
+\mathscr{P}_n(\cosh\xi)|_{\xi\rightarrow\infty}=\infty, n\ge1
+\end{equation}
+\begin{equation}
+\mathscr{Q}_n(\cosh\xi)|_{\xi\rightarrow\infty}=0,n\ge0
+\end{equation}
+Therefore, the general solution could be further simplified as:
+\begin{equation}
+\psi=A_0+\sum_{n=0}^\infty B_n \mathscr{Q}_n(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+Because of the arbitrariness of electrical potential, the constant $A_0$ could be set directly as 0, then
+\begin{equation}
+\psi=\sum_{n=0}^\infty B_n \mathscr{Q}_n(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+\subsection{Boundary Conditions at Motor Surface}
+The assumption of constant normal surface flux at motor flux results in constant normal component of electrical field at the outer edge of diffusion layer. Using Laplace equation to describe the electrostatic part is only valid beyond the diffusion layer. Therefore, the boundary conditions is given at the outer edge of diffusion layer and requires that
+\begin{equation}
+\nabla\psi \cdot \uv n= \frac{f(\xi,\theta)}{\epsilon},\xi=\xi_0
+\end{equation}
+where $\uv n$ is unit normal vector of motor surface and $f(\xi,\theta)$ is coverage function which is defined as
+\begin{equation}
+f(\xi,\theta)=
+\begin{cases}
+&\sigma_+,\theta<\theta_0\\
+&\sigma_-,\theta>\theta_0
+\end{cases}
+\end{equation}
+$\sigma_+$ and $\sigma_-$ describe equivalent surface charge at active surface and inert surface respectively.\\
+Note that the nabla operator in the prolate spheroidal coordinate is
+\begin{equation}
+\nabla=\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\left[\uv a_{\xi} \pd{}{\xi}+\uv a_{\theta}\pd{}{\theta}\right]+\frac{\uv a_{\phi}}{c\sinh\xi\sin\theta}\pd{}{\phi}
+\end{equation}
+Then,
+\begin{equation}
+\pd{\psi}{\xi}=\sinh\xi\sum_{n=0}^\infty B_n \mathscr{Q}_n^\prime(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+\begin{equation}
+\pd{\psi}{\theta}=-\sin\theta\sum_{n=0}^\infty B_n\mathscr{Q}_n(\cosh\xi)\mathscr{P}_n^\prime(\cos\theta)
+\end{equation}
+\begin{equation}
+\pd{\psi}{\phi}=0
+\end{equation}
+Therefore,
+\begin{equation}
+\v{E}=E_\xi \uv{a}_\xi+E_\theta\uv{a}_\theta
+\end{equation}
+where
+\begin{equation}
+E_\xi=\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\sinh\xi\sum_{n=0}^\infty B_n \mathscr{Q}_n^\prime(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+\begin{equation}
+E_\theta=-\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\sin\theta\sum_{n=0}^\infty B_n\mathscr{Q}_n(\cosh\xi)\mathscr{P}_n^\prime(\cos\theta)
+\end{equation}
+The constant $B_n$ is determined by boundary condition at motor surface, i.e.
+\begin{equation}
+E_\xi(\xi_0,\theta)=\frac{1}{c(\sinh^2\xi_0+\sin^2\theta)^{\frac{1}{2}}}\sinh\xi_0\sum_{n=0}^\infty B_n \mathscr{Q}_n^\prime(\cosh\xi_0)\mathscr{P}_n(\cos\theta)=\frac{f(\xi_0,\theta)}{\epsilon}
+\end{equation}
+Note the orthogonality of Legendre polynomials:
+\begin{equation}
+\int_{-1}^{1}P_m(x)P_n(x)\mathrm{d}x=\frac{2}{2n+1}\delta_{mn}
+\end{equation}
+Thus,
+\begin{equation}
+\begin{aligned}
+\sum_{n=0}^\infty B_n \mathscr{Q}^\prime_{n}(\cosh\xi_0)\int_{-1}^1\mathscr{P}_n(\cos\theta)\mathscr{P}_m(\cos\theta)\mathrm{d}\cos\theta&=\int_{-1}^1\frac{f(\xi_0,\theta)}{\epsilon}\frac{c(\sinh^2\xi_0+\sin^2\theta)^{\frac{1}{2}}}{\sinh\xi_0}\mathscr{P}_m(\cos\theta)\mathrm{d}\cos\theta\\
+B_m\mathscr{Q}_m^\prime(\cosh\xi_0)\frac{2}{2m+1}&=\frac{c}{\epsilon\sinh\xi_0}\int_{-1}^1f(\xi_0,\theta)(\sinh^2\xi_0+\sin^2\theta)^{\frac{1}{2}}\mathscr{P}_m(\cos\theta)\mathrm{d}\cos\theta
+\end{aligned}
+\end{equation}
+\begin{equation}
+B_m=\frac{2m+1}{2}\frac{1}{\mathscr{Q}_m^\prime(\cosh\xi_0)}\frac{c}{\epsilon\sinh\xi_0}\int_{-1}^1f(\xi_0,\theta)(\sinh^2\xi_0+\sin^2\theta)^{\frac{1}{2}}\mathscr{P}_m(\cos\theta)\mathrm{d}\cos\theta
+\end{equation}
+\section{Summary of Electrostatic Part}
+Now, electrostatic part has been fully solved. Relevant results are listed below for later usage.
+\subsection{Electrical Potential}
+\begin{equation}
+\psi=\sum_{n=0}^\infty B_n \mathscr{Q}_n(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+where
+\begin{equation}
+B_n=\frac{2n+1}{2}\frac{1}{\mathscr{Q}_n^\prime(\cosh\xi_0)}\frac{c}{\epsilon\sinh\xi_0}\int_{-1}^1f(\xi_0,\theta)(\sinh^2\xi_0+\sin^2\theta)^{\frac{1}{2}}\mathscr{P}_n(\cos\theta)\mathrm{d}\cos\theta
+\end{equation}
+Consider the dimension of motor, 
+\begin{equation}
+c=\sqrt{a^2-b^2}
+\end{equation}
+\begin{equation}
+\cosh\xi_0=\frac{a}{c}=\left[1-\left(\frac{b}{a}\right)^2\right]^{-\frac{1}{2}}
+\end{equation}
+\subsection{Electrical Field}
+\begin{equation}
+\v{E}=E_\xi \uv{a}_\xi+E_\theta\uv{a}_\theta
+\end{equation}
+where
+\begin{equation}\label{Sln_E_xi}
+E_\xi=\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\sinh\xi\sum_{n=0}^\infty B_n \mathscr{Q}_n^\prime(\cosh\xi)\mathscr{P}_n(\cos\theta)
+\end{equation}
+\begin{equation}\label{Sln_E_theta}
+E_\theta=-\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\sin\theta\sum_{n=0}^\infty B_n\mathscr{Q}_n(\cosh\xi)\mathscr{P}_n^\prime(\cos\theta)
+\end{equation}
+$E_\theta$ component, which induces the electroosmosis flow around motor surface, is essential for the coupling between electrostatic part and hydrodynamic part.
+\section{Hydrodynamic Part}
+This section will address the problem which is relevant to hydrodynamic aspect. Because of the feature of system I am interested, the Reynold number is assume to be very small. Thus, the creeping flow equation is assume valid. I will only consider the axis-symmetrical case in 3D. Then, it's useful to introduce the concept of stream function.\cite{HappelBrenner1983} In the following contents, I will describe these aspects in detail.
+\subsection{Governing Equation}
+\begin{equation}
+\left\{
+\begin{aligned}
+\mu\nabla^2\v v&=\grad P\\
+\div \v v&=0
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Boundary Condition}
+\begin{enumerate}
+\item
+The fluid is assume at rest at infinity, i.e.
+\begin{equation}
+\v v|_{r\rightarrow\infty}=0
+\end{equation}
+\item
+The slippery velocity at motor surface is assumed to be proportional to tangential component of electrical field, i.e.
+\begin{equation}
+\v v_s=\mu_{motor}\v E_t
+\end{equation}
+where $\mu_{motor}$ is the mobility of motor surface and $\v E_t$ is the tangential component of electrical field.\\
+Therefore, the boundary condition at motor surface is written as:
+\begin{equation}
+\v v=v_s+U_{motor}=\mu_{motor}\v E_t+U_{motor}
+\end{equation}
+where $U_{motor}$ is the self-phoresis speed of motor.
+\end{enumerate}
+\section{Stream Function}
+The interested system is assumed to be axis-symmetrical, which combined with the impressible condition, will guarantee the existence of stream function $\varphi$. The stream function is defined as:
+\begin{equation}
+\varphi=\frac{Q}{2\pi}=\frac{1}{2\pi}\int_{S}\v v\cdot\uv n\mathrm{d}S=\frac{1}{2\pi}\int_{s_0}^s\int_{0}^{2\pi}\v v\cdot \uv n \tilde{\omega}\mathrm{d}\phi\mathrm{d}s
+\end{equation}
+where $Q$ is the flux of prescribed surface $S$, $s$ is the arc length of meridian and $\tilde{\omega}$ is the radial length of meridian.
+\subsection{Relations between stream function and local velocity}
+Also note that
+\begin{equation}
+\varphi=\int_{s_0}^s\mathrm{d}\varphi=\int_{s_0}^s\v t\cdot \grad \varphi \mathrm{d}s
+\end{equation}
+where $\v t$ is the tangential vector of meridian. Thus,
+\begin{equation}
+\varphi=\int_{s_0}^s\v t\cdot \grad \varphi \mathrm{d}s=\int_{s_0}^s\v v\cdot \uv n\tilde{\omega}\mathrm{d}s
+\end{equation}
+It gives that
+\begin{equation}
+\v v \cdot \uv n\tilde{\omega}=\v t \cdot \grad \varphi
+\end{equation}
+i.e.
+\begin{equation}
+\v v=\frac{1}{\tilde{\omega}}\uv{i}_{\phi}\times\grad\varphi
+\end{equation}
+Project velocity $\v v$ in axis-symmetrical orthogonal coordinates system $\{q_1,q_2,\phi\}$:
+\begin{equation}\label{eqn_velocity}
+\left\{
+\begin{aligned}
+v_1&=-\frac{h_2}{\tilde{\omega}}\pd{\varphi}{q_2}\\
+v_2&=\frac{h_1}{\tilde{\omega}}\pd{\varphi}{q_1}
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Dynamical equations satisfied by stream function}
+In this section, I will expression the common creeping flow equation in terms of stream function $\varphi$. In order to achieve that, let's first consider the curl of velocity field in a orthogonal coordinate system $\{q_1,q_2,\phi\}$, i.e.
+\begin{equation}
+\begin{aligned}
+\gv \omega=\curl{\v  v}&=h_1h_2h_3
+\begin{pmatrix}
+\frac{\uv i_1}{h_1}&\frac{\uv i_2}{h_2}&\frac{\uv i_3}{h_3}\\
+\pd{}{q_1}&\pd{}{q_2}&\pd{}{q_3}\\
+\frac{v_1}{h_1}&\frac{v_2}{h_2}&\frac{v_3}{h_3}
+\end{pmatrix}\\
+&=\uv i_\phi h_1h_2\left[\pd{}{q_1}\left(\frac{v_2}{h_2}\right)-\pd{}{q_2}\left(\frac{v_1}{h_1}\right)\right]
+\end{aligned}
+\end{equation}
+Express above result in terms of stream function, we have
+\begin{equation}
+\gv \omega=\frac{\uv i_\phi}{\tilde\omega}E^2\varphi
+\end{equation}
+where
+\begin{equation}\label{operatorE2}
+E^2=\tilde{\omega}h_1h_2\left[\pd{}{q_1}\left(\frac{1}{\tilde{\omega}}\frac{h_1}{h_2}\pd{}{q_1}\right)+\pd{}{q_2}\left(\frac{1}{\tilde{\omega}}\frac{h_2}{h_1}\pd{}{q_2}\right)\right]
+\end{equation}
+Note that Naiver-Stokes equation is
+\begin{equation}
+\rho(\pd{\v v}{t}+\v v\cdot\grad\v v)-\mu\nabla^2\v v=-\grad P
+\end{equation}
+Express Naiver-Stokes equation by $\gv \omega$, we have
+\begin{equation}
+\pd{\gv \omega}{t}-\curl{\v v\times \gv \omega}+\nu\curl{\curl{\gv \omega}}=0
+\end{equation}
+where $\nu=\frac{\mu}{\rho}$ is the kinematic viscosity.\\
+Re-express by stream function, we obtain that
+\begin{equation}
+\nu E^4\varphi -\tilde{\omega}\left(\pd{\varphi}{z}\pd{}{\tilde{\omega}}-\pd{\varphi}{\tilde{\omega}}\pd{}{z}\right)\frac{E^2\varphi}{\tilde{\omega}^2}-\pd{}{t}(E^2\varphi)=0
+\end{equation}
+For the low Reynold number case, we could ignore inertial effect. Then, above equation could be reduced as
+\begin{equation}
+E^4\varphi-\frac{1}{\nu}\pd{}{t}\left(E^2\varphi\right)=0
+\end{equation}
+For the steady case, above equation could further reduced as
+\begin{equation}
+E^4\varphi=0
+\end{equation}
+\section{Separation in prolate spheroidal coordinate}
+Because of the geometry of the interested system, prolate spheroidal coordinate system is more convenient for problem solving. We first express operator $E^2$ in prolate spheroidal coordinate system. Note that in prolate spheroidal coordinate system,
+\begin{equation}
+\left\{
+\begin{aligned}
+x&=c\sinh\xi\sin\theta\cos\phi\\
+y&=c\sinh\xi\sin\theta\sin\phi\\
+z&=c\cosh\xi\cos\theta
+\end{aligned}
+\right.
+\end{equation}
+\begin{equation}
+h_\xi^2=h_\theta^2=\frac{1}{c^2\left(\sinh^2\xi+\sin^2\theta\right)} \ \ \ \ h_\phi^2=\frac{1}{c^2\sinh^2\xi\sin^2\theta}
+\end{equation}
+For convenience, denote that
+\begin{equation}
+\lambda =\cosh \xi \ \ \ \ \ \kappa=\cos\theta
+\end{equation}
+Then, note that
+\begin{equation}\label{eqn_differential}
+\left\{
+\begin{aligned}
+\pd{}{\xi}&=\sqrt{\lambda^2-1}\pd{}{\lambda}\\
+\pd{}{\theta}&=\sqrt{1-\kappa^2}\pd{}{\kappa}\\
+\end{aligned}
+\right.
+\end{equation}
+and
+\begin{equation}
+\left\{
+\begin{aligned}
+\tilde{\omega}&=\sqrt{x^2+y^2}=c\sinh\xi\sin\theta=c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}\\
+z&=c\lambda\kappa
+\end{aligned}
+\right.
+\end{equation}
+According to \ref{operatorE2}, the operator $E^2$ could be rewritten as
+\begin{equation}
+E^2=\frac{1}{c^2(\lambda^2-\kappa^2)}\left[\left(\lambda^2-1\right)\pdd{}{\lambda}+\left(1-\kappa^2\right)\pdd{}{\kappa}\right]
+\end{equation}
+\section{Trial Solution}
+In order to obtain the solution of $E^4\varphi=0$, consider the trial solution which assumes that
+\begin{equation}
+\varphi=(1-\kappa^2)g(\lambda)
+\end{equation}
+Thus,
+\begin{equation}
+\begin{aligned}
+E^2\varphi&=\frac{1}{c^2(\lambda^2-\kappa^2)}\left[\left(\lambda^2-1\right)\pdd{}{\lambda}+\left(1-\kappa^2\right)\pdd{}{\kappa}\right](1-\kappa^2)g(\lambda)\\
+&=\frac{1}{c^2(\lambda^2-\kappa^2)}\left[(\lambda^2-1)(1-\kappa^2)g^{\prime\prime}-2g(1-\kappa^2)\right]\\
+&=\frac{(1-\kappa^2)}{c^2(\lambda^2-\kappa^2)}G(\lambda)
+\end{aligned}
+\end{equation}
+where
+\begin{equation}
+G(\lambda)=(\lambda^2-1)g^{\prime\prime}(\lambda)-2g(\lambda)
+\end{equation}
+Repeat above process and after a lengthy calculation, we obtain that
+\begin{equation}
+\begin{aligned}
+E^4\varphi&=E^2\left[\frac{(1-\kappa^2)}{c^2(\lambda^2-\kappa^2)}G(\lambda)\right]\\
+&=\frac{(\kappa^2-1)(\lambda^2-1)\left[4(G-\lambda G^\prime)+(\lambda^2-\kappa^2)G^{\prime\prime}\right]}{c^4(\kappa^2-\lambda^2)^3}
+\end{aligned}
+\end{equation}
+In order to satisfy equation $E^4\varphi=0$, following two equations must be satisfied simultaneously:
+\begin{equation}
+\left\{
+\begin{aligned}
+G-\lambda G^\prime&=0\\
+G^{\prime\prime}&=0
+\end{aligned}
+\right.
+\end{equation}
+It's easy to find the above equations has only solution:
+\begin{equation}\label{eqn-lambdapart}
+G=C_1\lambda=(\lambda^2-1)g^{\prime\prime}-2g
+\end{equation}
+Note that this ordinary differential equation has a particular solution which is
+\begin{equation}
+g_{p}=-\frac{1}{2}C_1\lambda
+\end{equation}
+i.e.
+\begin{equation}
+(\lambda^2-1)g^{\prime\prime}_{p}-2g_p=C_1\lambda
+\end{equation}
+Then, we need to solve following homogeneous equation to obtain general solution,
+\begin{equation}
+(\lambda^2-1)g_h^{\prime\prime}-2g_{h}=0
+\end{equation}
+Note that
+\begin{equation}
+\d{}{\lambda}\left[(\lambda^2-1)g_h^\prime-2g_h\lambda\right]=0
+\end{equation}
+Thus,
+\begin{equation}
+(\lambda^2-1)g_h^\prime-2g_h\lambda=C_2
+\end{equation}
+Also note that
+\begin{equation}
+\d{}{\lambda}\left[\frac{g_h}{\lambda^2-1}\right]=\frac{C_2}{(\lambda^2-1)^2}
+\end{equation}
+Therefore, the solution of homogeneous part is
+\begin{equation}
+\begin{aligned}
+g_h&=C_2(\lambda^2-1)\int\frac{\mathrm{d}\lambda}{(\lambda^2-1)^2}+C_3(\lambda^2-1)\\
+&=
+\begin{cases}
+\frac{C_2}{2}\left[\mathrm{arctanh}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1),&0\le\lambda<1\\
+\frac{C_2}{2}\left[\mathrm{arccoth}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1),&\lambda>1
+\end{cases}
+\end{aligned}
+\end{equation}
+Then, the general solution of \ref{eqn-lambdapart} could be written as
+\begin{equation}
+g(\lambda)=g_p(\lambda)+g_h(\lambda)=
+\begin{cases}
+-\frac{1}{2}C_1\lambda+\frac{C_2}{2}\left[\mathrm{arctanh}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1),&0\le\lambda<1\\
+-\frac{1}{2}C_1\lambda+\frac{C_2}{2}\left[\mathrm{arccoth}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1),&\lambda>1
+\end{cases}
+\end{equation}
+Finally, the general form of stream function which satisfied $E^4\varphi=0$ in prolate spheroidal coordinate is:
+\begin{equation}
+\varphi=
+\begin{cases}
+(1-\kappa^2)\left\{-\frac{1}{2}C_1\lambda+\frac{C_2}{2}\left[\mathrm{arctanh}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1)\right\},&0\le\lambda<1\\
+(1-\kappa^2)\left\{-\frac{1}{2}C_1\lambda+\frac{C_2}{2}\left[\mathrm{arccoth}(\lambda)(\lambda^2-1)-\lambda\right]+C_3(\lambda^2-1)\right\},&\lambda>1
+\end{cases}
+\end{equation}
+\section{Boundary Conditions}
+In this section, I will firstly express relevant boundary conditions in terms of stream function. Then I will match boundary conditions with the general form of prolate spheroidal coordinate derived in last section to determine unknown constants. For convenience, all  relevant boundary conditions are rewritten by choosing motor as reference frame.
+\subsection{Boundary Condition at Infinity}
+By choosing motor itself as reference frame, original rest fluid at infinity becomes fluid with uniform motor speed. Thus, boundary condition at infinity becomes
+\begin{equation}
+\varphi|_{\lambda\rightarrow\infty}=\frac{1}{2}U_{motor}\tilde{\omega}^2=\frac{1}{2}U_{motor}c^2(\lambda^2-1)(1-\kappa^2)
+\end{equation}
+\subsection{Boundary Conditions at Motor Surface}
+Original normal direction at motor surface is assumed to be no slippery condition and tangential direction has slippery velocity which is assume to be proportional to the tangential component of electrical field. Choosing motor as reference frame, these conditions could be rewritten as
+\begin{enumerate}
+\item
+Normal component of fluid velocity field at motor surface is zero, then
+\begin{equation}
+v_{\xi}=-\frac{h_\theta}{\tilde{\omega}}\pd{\varphi}{\theta}=\frac{1}{c\sqrt{\lambda^2-\kappa^2}}c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}\sqrt{1-\kappa^2}\pd{\varphi}{\kappa}=\frac{(1-\kappa^2)\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\pd{\varphi}{\kappa}=0
+\end{equation}
+i.e.
+\begin{equation}
+\varphi(\lambda_0,\kappa)=0
+\end{equation}
+where motor surface is characterized by surface $\lambda=\lambda_0$ and $\varphi=0$ at axis of symmetry has been taken into consideration.
+\item Tangential component of fluid of velocity should be equal to the electroosmosis velocity caused by electrical field, then
+\begin{equation}
+v_\theta=\frac{h_\xi}{\tilde{\omega}}\pd{\varphi}{\xi}=\frac{1}{c\sqrt{\lambda^2-\kappa^2}}c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}\sqrt{\lambda^2-1}\pd{\varphi}{\lambda}=\frac{(\lambda^2-1)\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\pd{\varphi}{\lambda}=\mu_{motor}E_\theta
+\end{equation}
+\end{enumerate}
+i.e.
+\begin{equation}
+\frac{(\lambda^2-1)\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\pd{\varphi}{\lambda}=\mu_{motor}E_\theta
+\end{equation}
+Note that the tangential component of electrical field could be given independently by \ref{Sln_E_theta}.
+\subsection{Matching with Boundary Conditions}
+Note the geometry of motor that
+\begin{equation}
+\lambda_0=\cosh\xi_0=\frac{a}{c}=\left[1-\left(\frac{b}{a}\right)^2\right]^{-\frac{1}{2}}>1
+\end{equation}
+Then, the general form of stream function is
+\begin{equation}\label{eqn_streamFunc}
+\varphi{} = \left({\kappa{}}^2 - 1\right)\, \left(\frac{\lambda{}\, C_{1}}{2} - C_{3}\, \left({\lambda{}}^2 - 1\right) + \frac{C_{2}\, \left(\lambda{} - \mathop{\mathrm{arccoth}}\nolimits\!\left(\lambda{}\right)\, \left({\lambda{}}^2 - 1\right)\right)}{2}\right)
+\end{equation}
+First, consider the boundary condition at infinity and obviously,
+\begin{equation}
+C_3=\frac{1}{2}U_{motor}c^2
+\end{equation}
+To obtain above conclusion, we must assume $C_1$ and $C_2$ have opposite sign which is satisfied automatically in following derivation.\\
+Then, consider the boundary conditions at motor surface and note that
+\begin{equation}
+\pd{\varphi}{\lambda}=- \left({\kappa{}}^2 - 1\right)\, \left(\frac{C_{2}\, \left(2\, \lambda{}\, \mathop{\mathrm{arccoth}}\nolimits\!\left(\lambda{}\right) - 2\right)}{2} - \frac{C_{1}}{2} + 2\, \lambda{}\, C_{3}\right)
+\end{equation}
+Thus, other two constants $C_1$ and $C_2$ are determined by following linear system,
+\begin{equation}
+\left\{
+\begin{aligned}
+(1-\kappa^2)\left\{-\frac{C_1\lambda_0}{2}+\frac{C_2}{2}\left[\mathrm{arccoth}(\lambda_0)(\lambda_0^2-1)-\lambda_0\right]+C_3(\lambda_0^2-1)\right\}&=0\\
+-\frac{(\lambda_0^2-1)\sqrt{1-\kappa^2}}{\sqrt{\lambda_0^2-\kappa^2}} \left({\kappa{}}^2 - 1\right)\, \left(\frac{C_{2}\, \left(2\, \lambda_0{}\, \mathop{\mathrm{arccoth}}\nolimits\!\left(\lambda_0{}\right) - 2\right)}{2} - \frac{C_{1}}{2} + 2\, \lambda_0{}\, C_{3}\right)&=\mu_{motor}E_\theta
+\end{aligned}
+\right.
+\end{equation}
+The result is given below:
+\begin{equation}
+\left\{
+\begin{aligned}
+C_1&=\frac{4C_3}{\sigma_1}+\frac{\mu_{motor}E_\theta}{\sigma_3}\frac{\sigma_2}{\sigma_1}\\
+C_2&=-\frac{2C_3(\lambda_0^2+1)}{\sigma_1}+\frac{\mu_{motor}E_\theta}{\sigma_3}\frac{2\lambda_0}{\sigma_1}
+\end{aligned}
+\right.
+\end{equation}
+where
+\begin{equation}
+\left\{
+\begin{aligned}
+\sigma_1&=-\lambda_0+\lambda_0^2\mathrm{arccoth}(\lambda_0)+\mathrm{arccoth}(\lambda_0)\\
+\sigma_2&=-\lambda_0+\lambda_0^2\mathrm{arccoth}(\lambda_0)-\mathrm{arccoth}(\lambda_0)\\
+\sigma_3&=\frac{(\lambda_0^2-1)(1-\kappa^2)^{3/2}}{\sqrt{\lambda_0^2-\kappa^2}}
+\end{aligned}
+\right.
+\end{equation}
+Substitute $C_1$, $C_2$ and $C_3$ back into \ref{eqn_streamFunc}:
+\begin{equation}
+\varphi=\varphi_{H}+\varphi_{E}
+\end{equation}
+where
+\begin{equation}
+\varphi_{H}=
+\frac{1}{2}U_{motor}\tilde{\omega}^2\left\{1-\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\right\}
+\end{equation}
+Note that
+\begin{equation}
+\tilde{\omega}=c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\varphi_{E}&=\frac{1}{2}(\kappa^2-1)\frac{\mu_{motor}E_\theta}{\sigma_3}\frac{\sigma_2}{\sigma_1}(\lambda-2\lambda_0)\\
+&=-\frac{1}{2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(\lambda_0^2-1)\sqrt{1-\kappa^2}}\frac{\sigma_2}{\sigma_1}(\lambda-2\lambda_0)\mu_{motor}E_\theta
+\end{aligned}
+\end{equation}
+Put these results together, the stream function could be written as
+\begin{equation}
+\varphi=\frac{1}{2}U_{motor}\tilde{\omega}^2\left\{1-\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\right\}-\frac{1}{2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(\lambda_0^2-1)\sqrt{1-\kappa^2}}\frac{\sigma_2}{\sigma_1}(\lambda-2\lambda_0)\mu_{motor}E_\theta
+\end{equation}
+The first term is caused by the common hydrodynamic effect while the second term is the electrostatic effect caused by motor surface reaction which is coupled with the hydrodynamic motion as stream function clearly displayed.\\
+Finally, note that above stream function is written by choosing motor body as reference frame. It could be easily transformed to laboratory frame by subtracting a uniform background with velocity $U_{motor}$, i.e.
+\begin{equation}\label{eqn-streamfunc}
+\begin{aligned}
+\tilde\varphi&=\varphi-\frac{1}{2}U_{motor}\tilde{\omega}^2\\
+&=-\frac{1}{2}U_{motor}\tilde{\omega}^2\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]-\frac{1}{2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(\lambda_0^2-1)\sqrt{1-\kappa^2}}\frac{\sigma_2}{\sigma_1}(\lambda-2\lambda_0)\mu_{motor}E_\theta(\lambda_0,\kappa), \lambda>1
+\end{aligned}
+\end{equation}
+\section{Velocity Field, Fluid Stress, Resistance Force and Motor Speed}
+As stream function of interested system has been explicitly calculated, all relevant quantities are ready for calculation. In this section, I will calculate the velocity field, fluid stress tensor, resistance force and finally to determined the self-phoresis speed of motor.
+\subsection{Velocity Field}
+According to \ref{eqn_velocity}, the velocity field and stream function have following relations:
+\begin{equation}
+\left\{
+\begin{aligned}
+v_{\xi}&=-\frac{h_\theta}{\tilde{\omega}}\pd{\varphi}{\theta}\\
+v_{\theta}&=\frac{h_\xi}{\tilde\omega}\pd{\varphi}{\xi}
+\end{aligned}
+\right.
+\end{equation}
+Note differential relation given by ~\ref{eqn_differential}, velocity field could be calculated as following:
+\begin{equation}
+\left\{
+\begin{aligned}
+v_{\xi}&=-\frac{1}{c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}}\frac{1}{c\sqrt{\lambda^2-\kappa^2}}\left(-\sqrt{1-\kappa^2}\pd{\varphi}{\kappa}\right)=\frac{1}{c^2\sqrt{\lambda^2-1}\sqrt{\lambda^2-\kappa^2}}\pd{\varphi}{\kappa}\\
+v_{\theta}&=\frac{1}{c\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}}\frac{1}{c\sqrt{\lambda^2-\kappa^2}}\sqrt{\lambda^2-1}\pd{\varphi}{\lambda}=\frac{1}{c^2\sqrt{1-\kappa^2}\sqrt{\lambda^2-\kappa^2}}\pd{\varphi}{\lambda}
+\end{aligned}
+\right.
+\end{equation}
+Note that
+\begin{equation}\label{eqn-1st}
+\begin{aligned}
+E_\theta(\lambda_0,\kappa)&=-\frac{1}{c(\sinh^2\xi+\sin^2\theta)^{\frac{1}{2}}}\sin\theta\sum_{n=0}^\infty B_n\mathscr{Q}_n(\cosh\xi)\mathscr{P}_n^\prime(\cos\theta)\\
+&=-\frac{\sqrt{1-\kappa^2}}{c\sqrt{\lambda_0^2-\kappa^2}}\sum_{n=0}^\infty B_n\mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)\\
+\pd{\varphi_H}{\kappa}&=-\frac{1}{2}U_{motor}c^2(\lambda^2-1)(-2\kappa)\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\\
+\pd{\varphi_E}{\kappa}&=\frac{1}{2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}(\lambda-2\lambda_0)\sum_{n=0}^\infty B_n\mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)\\
+\pd{\varphi_H}{\lambda}&=-\frac{1}{2}U_{motor}c^2(1-\kappa^2)\left\{\frac{1-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\lambda\mathrm{arccoth}(\lambda)-1\right]}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right\}\\
+\pd{\varphi_E}{\lambda}&=\frac{1}{2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)
+\end{aligned}
+\end{equation}
+Therefore, velocity field is given as following:
+\begin{equation}
+\left\{
+\begin{aligned}
+v_\xi&=\frac{U_{motor}\kappa\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]+\frac{1}{2}\frac{\lambda-2\lambda_0}{c^2\sqrt{\lambda^2-1}\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n\mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)\\
+v_\theta&=-\frac{U_{motor}\sqrt{1-\kappa^2}}{2\sqrt{\lambda^2-\kappa^2}}\left\{\frac{1-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\lambda\mathrm{arccoth}(\lambda)-1\right]}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right\}+\frac{1}{2}\frac{1}{c^2\sqrt{1-\kappa^2}\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Fluid Stress}
+\subsubsection{Relevant Theoretical Preparations}
+The stress tensor of incompressible viscous fluid is:
+\begin{equation}
+\gv \Pi = -p\v I + 2\mu \gv \Delta
+\end{equation}
+where
+\begin{equation}
+\gv \Delta = \frac{1}{2}\left[\grad{\v v}+ \left(\grad{\v v}\right)^T\right]
+\end{equation}
+For convenience, expand above expressions in prolate spheroidal coordinate $\{\uv i_\xi,\uv i_\theta, \uv i_\phi\}$, i.e.
+\begin{equation}
+\begin{aligned}
+\v I&=\uv i_\xi \uv i_\xi + \uv i_\theta \uv i_\theta + \uv i_\phi \uv i_\phi\\
+\v v&=\uv i_\xi v_\xi+\uv i_\theta v_\theta
+\end{aligned}
+\end{equation}
+Also note that, generally,
+\begin{equation}
+\grad=\uv i_1 h_1\pd{}{q_1}+\uv i_2 h_2\pd{}{q_2}+\uv i_3 h_3\pd{}{q_3}
+\end{equation}
+\begin{equation}
+\v v=\uv i_1 v_1 +\uv i_2 v_2 + \uv i_3 v_3
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\grad{\v v}&=\uv i_1 \uv i_1 h_1\left[\pd{v_1}{q_1}+h_2v_2\pd{}{q_2}\left(\frac{1}{h_1}\right)+h_3v_3\pd{}{q_3}\left(\frac{1}{h_1}\right)\right]\\
+&+\uv i_1 \uv i_2 h_1\left[\pd{v_2}{q_1}-h_2v_1\pd{}{q_2}\left(\frac{1}{h_1}\right)\right]\\
+&+\uv i_1 \uv i_3 h_1\left[\pd{v_3}{q_1}-h_3v_1\pd{}{q_3}\left(\frac{1}{h_1}\right)\right]\\
+&+\uv i_2 \uv i_1 h_2\left[\pd{v_1}{q_2}-h_1v_2\pd{}{q_1}\left(\frac{1}{h_2}\right)\right]\\
+&+\uv i_2 \uv i_2 h_2\left[\pd{v_2}{q_2}+h_3v_3\pd{}{q_3}\left(\frac{1}{h_2}\right)+h_1v_1\pd{}{q_1}\left(\frac{1}{h_2}\right)\right]\\
+&+\uv i_2 \uv i_3 h_2\left[\pd{v_3}{q_2}-h_3v_2\pd{}{q_3}\left(\frac{1}{h_2}\right)\right]\\
+&+\uv i_3 \uv i_1 h_3\left[\pd{v_1}{q_3}-h_1v_3\pd{}{q_1}\left(\frac{1}{h_3}\right)\right]\\
+&+\uv i_3 \uv i_2 h_3\left[\pd{v_2}{q_3}-h_2v_3\pd{}{q_2}\left(\frac{1}{h_3}\right)\right]\\
+&+\uv i_3 \uv i_3 h_3\left[\pd{v_3}{q_3}+h_1v_1\pd{}{q_1}\left(\frac{1}{h_3}\right)+h_2v_2\pd{}{q_2}\left(\frac{1}{h_3}\right)\right]
+\end{aligned}
+\end{equation}
+Apply above general result to prolate spheroidal coordinate $\{\xi,\theta,\phi\}$, then
+\begin{equation}
+\begin{aligned}
+\grad{\v v}&=\uv i_\xi \uv i_\xi h_\xi\left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\\
+&+\uv i_\xi \uv i_\theta h_\xi \left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\\
+&+\uv i_\theta \uv i_\xi h_\theta \left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]\\
+&+\uv i_\theta \uv i_\theta h_\theta \left[\pd{v_\theta}{\theta}+h_\xi v_\xi \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]\\
+&+\uv i_\phi \uv i_\phi h_\phi \left[h_\xi v_\xi \pd{}{\xi}\left(\frac{1}{h_\phi}\right)+h_\theta v_\theta\pd{}{\theta}\left(\frac{1}{h_\phi}\right)\right]
+\end{aligned}
+\end{equation}
+Thus,
+\begin{equation}
+\begin{aligned}
+\gv \Delta&=\frac{1}{2}\left[\grad{\v v} + \left(\grad{\v v}\right)^T\right]\\
+&=\uv i_\xi \uv i_\xi h_\xi \left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\\
+&+\uv i_\xi \uv i_\theta \frac{1}{2}\left\{h_\xi\left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]+h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]\right\}\\
+&+\uv i_\theta \uv i_\xi \frac{1}{2}\left\{h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]+h_\xi \left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+&+\uv i_\theta \uv i_\theta h_\theta \left[\pd{v_\theta}{\theta}+h_\xi v_\xi \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]\\
+&+\uv i_\phi \uv i_\phi h_\phi \left[h_\xi v_\xi \pd{}{\xi} \left(\frac{1}{h_\phi}\right)+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\phi}\right)\right]
+\end{aligned}
+\end{equation}
+Note the force acting upon motor body is given by following surface integral:
+\begin{equation}
+\v F=\iint_S \gv \Pi \mathrm{d}\v S=\iint_S \gv\Pi \cdot \uv i_\xi \mathrm{d}S
+\end{equation}
+where $\uv i_\xi$ is the external unit normal vector of motor surface. Then, consider the quantity $\gv \Pi \cdot \uv i_\xi$:
+\begin{equation}
+\begin{aligned}
+\gv \Pi_\xi=\gv \Pi \cdot \uv i_\xi&=
+\uv i_\xi \left\{-p+2\mu h_\xi \left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+&+\uv i_\theta \mu \left\{h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]+h_\xi\left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}
+\end{aligned}
+\end{equation}
+It's clear that the first term is the normal stress acting upon motor surface while the second term is the tangential stress. Because of the axis-symmetry of system, only z-component is non-vanishing after surface integral. Before doing so, note that
+\begin{equation}
+\uv i_k=h_k \pd{\v R}{q_k}=h_k\left(\uv i_x \pd{x}{q_k} + \uv i_y \pd{y}{q_k} +\uv i_z \pd{z}{q_k}\right), k=1,2,3
+\end{equation}
+Then,
+\begin{equation}\label{eqn_stressz}
+\begin{aligned}
+\gv \Pi_{\xi z}=\gv \Pi_\xi \cdot \uv i_z&=
+h_\xi\pd{z(\xi,\theta,\phi)}{\xi} \left\{-p+2\mu h_\xi \left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+&+h_\theta\pd{z(\xi,\theta,\phi)}{\theta} \mu \left\{h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]+h_\xi\left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+\end{aligned}
+\end{equation}
+and
+\begin{equation}\label{eqn_forcez}
+F_z=\iint_S\gv \Pi_{\xi z}(\xi_0,\theta)\mathrm{d}S=\int_0^\pi\int_0^{2\pi} \gv \Pi_{\xi z}(\xi_0,\theta)\frac{\mathrm{d}\theta\mathrm{d}\phi}{h_\theta h_\phi}=2\pi\int_0^\pi \left.\frac{\gv \Pi_{\xi z}(\xi,\theta)}{h_\theta h_\phi}\right|_{\xi=\xi_0}\mathrm{d}\theta
+\end{equation}
+Till now, everything has been prepared for calculation except for the pressure term. I will address this problem separately in the next subsection.\\
+Alternative expression of $\Pi_\xi$ for possible reference:
+\begin{equation}
+\gv \Pi_\xi=-p\uv i_\xi + 2\mu \grad{v_\xi}+\mu  (\uv i_\phi \cdot \curl{\v v})\uv i_\theta+2\mu h_\xi h_\theta v_\theta\left[\pd{}{\theta}\left(\frac{1}{h_\xi}\right)\uv i_\xi - \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\uv i_\theta\right]
+\end{equation}
+\subsubsection{Pressure}
+To solve pressure, let's go back to governing equations:
+\begin{equation}
+\frac{1}{\mu}\grad{p}=\nabla^2\v v=\grad(\div{\v v})-\curl{\curl{\v v}}=-\curl{\gv \omega}=-\curl{\left(\frac{\uv i_\phi}{\tilde\omega}E^2\varphi\right)}=-\frac{\uv i_\phi}{\tilde\omega}\times \grad{E^2\varphi}
+\end{equation}
+Expand gradient operator in axis-symmetrical coordinate system $\{q_1,q_2,\phi\}$:
+\begin{equation}
+\grad = \uv i_1 h_1\pd{}{q_1}+\uv i_2 h_2\pd{}{q_2}
+\end{equation}
+Therefore, pressure is given by following differential equation:
+\begin{equation}
+\left\{
+\begin{aligned}
+\pd{p}{q_1}&=-\frac{\mu}{\tilde\omega}\frac{h_2}{h_1}\pd{}{q_2}\left(E^2 \varphi\right)\\
+\pd{p}{q_2}&=\frac{\mu}{\tilde\omega}\frac{h_1}{h_2}\pd{}{q_1}\left(E^2 \varphi\right)
+\end{aligned}
+\right.
+\end{equation}
+where
+\begin{equation}
+E^2=\tilde{\omega}h_1h_2\left[\pd{}{q_1}\left(\frac{1}{\tilde{\omega}}\frac{h_1}{h_2}\pd{}{q_1}\right)+\pd{}{q_2}\left(\frac{1}{\tilde{\omega}}\frac{h_2}{h_1}\pd{}{q_2}\right)\right]
+\end{equation}
+Particularly, for prolate spheroidal coordinate system,
+\begin{equation}\label{eqn-pressure}
+\left\{
+\begin{aligned}
+\pd{p}{\xi}&=-\frac{\mu}{\tilde\omega}\pd{}{\theta}\left(E^2 \varphi\right)\\
+\pd{p}{\theta}&=\frac{\mu}{\tilde\omega}\pd{}{\xi}\left(E^2 \varphi\right)
+\end{aligned}
+\right.
+\end{equation}
+where
+\begin{equation}
+E^2=\frac{1}{c^2(\lambda^2-\kappa^2)}\left[\left(\lambda^2-1\right)\pdd{}{\lambda}+\left(1-\kappa^2\right)\pdd{}{\kappa}\right]
+\end{equation}
+\subsection{Calculation}
+In this section, I will conduct detailed calculation for my interested system. I will start from calculation of pressure.
+\subsubsection{Pressure}
+To solve \ref{eqn-pressure}, explicit expression of $E^2 \varphi$ is necessary.\\
+Based on the expression of stream function \ref{eqn-streamfunc} and first derivatives of stream function \ref{eqn-1st}, it's easy to show that:
+\begin{equation}
+\begin{aligned}
+\pdd{\varphi_H}{\kappa}&=U_{motor}c^2(\lambda^2-1)\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda^2_0-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\\
+\pdd{\varphi_E}{\kappa}&=\frac{1}{2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}(\lambda-2\lambda_0)\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)\\
+\pdd{\varphi_H}{\lambda}&=-\frac{1}{2}U_{motor}c^2(1-\kappa^2)\left\{\frac{-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\mathrm{arccoth}(\lambda)-\frac{2\lambda}{\lambda^2-1}\right]}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right\}\\
+\pdd{\varphi_E}{\lambda}&=0
+\end{aligned}
+\end{equation}
+Therefore,
+\begin{equation}
+\begin{aligned}
+E^2\varphi&=\frac{1}{c^2(\lambda^2-\kappa^2)}\left[(\lambda^2-1)\pdd{}{\lambda}+(1-\kappa^2)\pdd{}{\kappa}\right]\left(\varphi_H+\varphi_E\right)\\
+&=U_{motor}\frac{(\lambda^2-1)(1-\kappa^2)}{\lambda^2-\kappa^2}\frac{-\frac{2}{\lambda^2_0-1}\frac{\lambda}{\lambda^2-1}}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{1}{2}\frac{(\lambda-2\lambda_0)(1-\kappa^2)}{\lambda^2-\kappa^2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)
+\end{aligned}
+\end{equation}
+Then, \ref{eqn-pressure} could be expressed as
+\begin{equation}
+\left\{
+\begin{aligned}
+\pd{p}{\lambda}&=-\frac{\mu}{c(\lambda^2-1)}\pd{}{\kappa}\left(E^2 \varphi\right)\\
+\pd{p}{\kappa}&=\frac{\mu}{c(1-\kappa^2)}\pd{}{\lambda}\left(E^2 \varphi\right)
+\end{aligned}
+\right.
+\end{equation}
+To avoid the integration of Legend polynomials, I choose first equation to calculate pressure:
+\begin{equation}
+\begin{aligned}
+\pd{p}{\lambda}&=-\frac{\mu}{c}U_{motor}\frac{2\kappa}{(\lambda^2-\kappa^2)^2}\frac{\frac{2}{\lambda_0^2-1}\lambda}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{\mu}{c}\frac{(\lambda-2\lambda_0)\kappa}{(\lambda^2-\kappa^2)^2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)\\
+&-\frac{\mu}{c}\frac{1}{2}\frac{\lambda-2\lambda_0}{\lambda^2-1}\frac{1-\kappa^2}{\lambda^2-\kappa^2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime\prime}(\kappa)
+\end{aligned}
+\end{equation}
+Note following integral:
+\begin{equation}
+\begin{aligned}
+\int\frac{2\lambda}{(\lambda^2-\kappa^2)^2}\mathrm{d}\lambda&=-\frac{1}{\lambda^2-\kappa^2}\\
+\int\frac{\lambda-2\lambda_0}{(\lambda^2-\kappa^2)^2}\mathrm{d}\lambda&=-\frac{1}{2}\frac{1}{\lambda^2-\kappa^2}+\frac{\lambda_0\lambda}{\kappa^2(\lambda^2-\kappa^2)}-\frac{\lambda_0\mathrm{arccoth}(\frac{\lambda}{\kappa})}{\kappa^3}\\
+\int\frac{\lambda-2\lambda_0}{\lambda^2-1}\frac{1}{\lambda^2-\kappa^2}\mathrm{d}\lambda&=
+\frac{\ln\frac{\lambda^2-1}{\lambda^2-\kappa^2}}{2(1-\kappa^2)}+\frac{\lambda_0\ln\frac{\lambda+1}{\lambda-1}}{1-\kappa^2}-\frac{\lambda_0\ln\frac{\lambda+\kappa}{\lambda -\kappa}}{\kappa(1-\kappa^2)}
+\end{aligned}
+\end{equation}
+Then,
+\begin{equation}
+\begin{aligned}
+p&=\frac{\mu}{c}U_{motor}\frac{2\kappa}{\lambda^2-\kappa^2}\frac{1}{\lambda_0-(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{\mu}{c}
+\left[-\frac{1}{2}\frac{\kappa}{\lambda^2-\kappa^2}+\frac{\lambda_0\lambda}{\kappa(\lambda^2-\kappa^2)}-\frac{\lambda_0\mathrm{arccoth}(\frac{\lambda}{\kappa})}{\kappa^2}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)\\
+&-\frac{\mu}{c}\frac{1}{2}
+\left[\frac{1}{2}\ln \frac{\lambda^2-1}{\lambda^2-\kappa^2}+\lambda_0\ln\frac{\lambda+1}{\lambda-1}-\frac{\lambda_0\ln\frac{\lambda+\kappa}{\lambda-\kappa}}{\kappa}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime\prime}(\kappa)\\
+&+p_\infty
+\end{aligned}
+\end{equation}
+The constant $P_\infty$ is determined by boundary condition. Here, assume pressure is zero at infinity, i.e.
+\begin{equation}
+p|_{r\to\infty}=0
+\end{equation}
+It gives that
+\begin{equation}
+p_\infty=0
+\end{equation}
+Finally, pressure term has been solved and is given by
+\begin{equation}
+\begin{aligned}
+p(\lambda,\kappa)&=\frac{\mu}{c}U_{motor}\frac{2\kappa}{\lambda^2-\kappa^2}\frac{1}{\lambda_0-(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{\mu}{c}
+\left[-\frac{1}{2}\frac{\kappa}{\lambda^2-\kappa^2}+\frac{\lambda_0\lambda}{\kappa(\lambda^2-\kappa^2)}-\frac{\lambda_0\mathrm{arccoth}(\frac{\lambda}{\kappa})}{\kappa^2}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)\\
+&-\frac{\mu}{c}\frac{1}{2}
+\left[\frac{1}{2}\ln \frac{\lambda^2-1}{\lambda^2-\kappa^2}+\lambda_0\ln\frac{\lambda+1}{\lambda-1}-\frac{\lambda_0\ln\frac{\lambda+\kappa}{\lambda-\kappa}}{\kappa}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime\prime}(\kappa)\\
+\end{aligned}
+\end{equation}
+\subsection{Resistance Force}
+\subsubsection{Approximate Calculation}
+The resistance force exerted on the motor body could be estimated by
+\begin{equation}
+F_z=8\pi\mu\lim_{r\to\infty}\frac{r\tilde\varphi}{\tilde{\omega}^2}=8\pi\mu c\lim_{\lambda\to\infty}\frac{\lambda\tilde\varphi}{\tilde{\omega}^2}=8\pi\mu c\lim_{\lambda\to\infty}\frac{\lambda\tilde{\varphi_H}}{\tilde{\omega}^2}+8\pi\mu c\lim_{\lambda\to\infty}\frac{\lambda\tilde{\varphi_E}}{\tilde{\omega}^2}
+\end{equation}
+where
+\begin{equation}
+\begin{aligned}
+8\pi\mu c\lim_{\lambda\to\infty}\frac{\lambda\tilde{\varphi_H}}{\tilde{\omega}^2}&=-\frac{1}{2}8\pi\mu c U_{motor}\left[\frac{\lim_{\lambda\to\infty}\left(\frac{\lambda^2}{\lambda^2-1}\right)-\frac{\lambda_0^2+1}{\lambda_0^2-1}\lim_{\lambda\to\infty}\left(\lambda\mathrm{arccoth}\lambda\right)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\\
+&=-\frac{8\pi\mu c U_{motor}}{(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)-\lambda_0}
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+8\pi\mu c\lim_{\lambda\to\infty}\frac{\lambda\tilde{\varphi_E}}{\tilde{\omega}^2}&=8\pi\mu c\lim_{\lambda\to\infty}\frac{-\frac{1}{2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(\lambda_0^2-1)\sqrt{1-\kappa^2}}\frac{\sigma_2}{\sigma_1}\mu_{motor}E_\theta(\lambda_0,\kappa)(\lambda-2\lambda_0)\lambda}{c^2(\lambda^2-1)(1-\kappa^2)}\\
+&=-\frac{4\pi\mu}{c}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(1-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\mu_{motor}E_\theta(\lambda_0,\kappa)
+\end{aligned}
+\end{equation}
+Therefore,
+\begin{equation}
+F_z=-\frac{8\pi\mu c U_{motor}}{(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)-\lambda_0}-\frac{4\pi\mu}{c}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(1-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\mu_{motor}E_\theta(\lambda_0,\kappa)
+\end{equation}
+\subsubsection{Exact Calculation}
+The calculation of resistance force is pretty tedious. I will start from \ref{eqn_stressz} and \ref{eqn_forcez}. Note following useful relations:
+\begin{equation}
+\begin{aligned}
+z&=c\cosh\xi\cos\theta=c\lambda\kappa\\
+h_\xi^2&=h_\theta^2=\frac{1}{c^2(\sinh^2\xi+\sin^2\theta)}=\frac{1}{c^2(\lambda^2-\kappa^2)}\\
+\pd{}{\xi}&=\sqrt{\lambda^2-1}\pd{}{\lambda}\\
+\pd{}{\theta}&=\sqrt{1-\kappa^2}\pd{}{\kappa}\\
+\pd{z}{\xi}&=\sqrt{\lambda^2-1}\pd{z}{\lambda}=c\kappa\sqrt{\lambda^2-1}\\
+\pd{z}{\theta}&=\sqrt{1-\kappa^2}\pd{z}{\kappa}=c\lambda\sqrt{1-\kappa^2}\\
+\pd{}{\theta}\left(\frac{1}{h_\xi}\right)&=\sqrt{1-\kappa^2}\pd{}{\kappa}(c\sqrt{\lambda^2-\kappa^2})=-\frac{c\kappa\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\\
+\pd{}{\xi}\left(\frac{1}{h_\theta}\right)&=\sqrt{\lambda^2-1}\pd{}{\lambda}(c\sqrt{\lambda^2-\kappa^2})=\frac{c\lambda\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\\
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\pd{v_\xi}{\xi}&=U_{motor}\kappa\left[\frac{-\frac{1}{\lambda^2-1}+\frac{\lambda_0^2+1}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\lambda \mathrm{arccoth}(\lambda)}{\sqrt{\lambda^2-\kappa^2}}-\frac{\lambda^2-\frac{\lambda_0^2+1}{\lambda_0^2-1}\lambda(\lambda^2-1)\mathrm{arccoth}(\lambda)}{(\lambda^2-\kappa^2)^{3/2}}\right]\\
+&\frac{1}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{1}{2}\frac{1}{c^2}\left[\frac{2\lambda_0\lambda(\kappa^2+1)-\kappa^2+\lambda^3(\lambda-4\lambda_0)}{(\lambda^2-\kappa^2)^{3/2}(\lambda^2-1)}\right]\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)\\
+\pd{v_\xi}{\theta}&=U_{motor}\frac{\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\frac{\lambda^2}{\lambda^2-\kappa^2}\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\\
+&+\frac{1}{2}\frac{1}{c^2}\frac{\lambda-2\lambda_0}{\sqrt{\lambda^2-1}}\frac{\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\left[\frac{\kappa}{\lambda^2-\kappa^2}\mathscr{P}_n^{\prime\prime}+\mathscr{P}_n^{\prime\prime\prime}(\kappa)\right]\\
+\pd{v_\theta}{\theta}&=-\frac{U_{motor}}{2}\frac{\sqrt{1-\kappa^2}\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\left\{\frac{\frac{\lambda_0^2+1}{\lambda_0^2-1}\lambda\left[2\lambda\mathrm{arccoth}(\lambda)-1\right]-\lambda}{\lambda^2-\kappa^2}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\mathrm{arccoth}(\lambda)-\frac{2\lambda}{\lambda^2-1}\right]\right\}\\
+&\frac{1}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&-\frac{1}{2}\frac{1}{c^2}\frac{\sqrt{\lambda^2-1}}{\sqrt{1-\kappa^2}}\frac{\lambda}{(\lambda^2-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)\\
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)&=U_{motor}\kappa\left\{\frac{-\frac{1}{\lambda^2-1}+\frac{\lambda_0^2+1}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\lambda\mathrm{arccoth}(\lambda)}{\sqrt{\lambda^2-\kappa^2}}\right.\\
+&\left.-\frac{\left[\lambda^2-\frac{\lambda_0^2+1}{\lambda_0^2-1}\lambda(\lambda^2-1)\mathrm{arccoth}(\lambda)\right]-\frac{1-\kappa^2}{2}\left[1-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left(2\lambda\mathrm{arccoth}(\lambda)-1\right)\right]}{(\lambda^2-\kappa^2)^{3/2}} \right\}\\
+&\frac{1}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{1}{2}\frac{1}{c^2}\left[\frac{2\lambda_0\lambda(\kappa^2+1)-\kappa^2+\lambda^3(\lambda-4\lambda_0)}{(\lambda^2-\kappa^2)^{3/2}(\lambda^2-1)}\right]\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)\\
+&+\frac{1}{2}\frac{1}{c^2}\frac{\kappa}{\sqrt{1-\kappa^2}}\frac{1}{\lambda^2-\kappa^2}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\pd{v_\xi}{\theta}-h_\xi v_\theta\pd{}{\xi}\left(\frac{1}{h_\theta}\right)&=U_{motor}\frac{\lambda\sqrt{\lambda^2-1}\sqrt{1-\kappa^2}}{(\lambda^2-\kappa^2)^{3/2}}\left\{ \frac{\frac{\lambda^2}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\lambda\mathrm{arccoth}(\lambda)-\frac{1}{2}\right]+\frac{1}{2}}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)} \right\}\\
+&+\frac{1}{2}\frac{1}{c^2}\frac{\lambda-2\lambda_0}{\sqrt{\lambda^2-1}}\frac{\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\left[\frac{\kappa}{\lambda^2-\kappa^2}\mathscr{P}_n^{\prime\prime}(\kappa)-\mathscr{P}_n^{\prime\prime\prime}(\kappa)\right]\\
+&-\frac{1}{2}\frac{1}{c^2}\frac{\sqrt{\lambda^2-1}}{\sqrt{1-\kappa^2}}\frac{\lambda}{(\lambda^2-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n\mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)&=-\frac{U_{motor}}{2}\frac{\sqrt{1-\kappa^2}\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\left\{\frac{\lambda\left[\frac{\lambda_0^2+1}{\lambda_0^2-1}\left(2\lambda\mathrm{arccoth}(\lambda)-1\right)-1\right]}{\lambda^2-\kappa^2}\right.\\
+&\left. -\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\mathrm{arccoth}(\lambda)-\frac{2\lambda}{\lambda^2-1}\right]\right\}
+\frac{1}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\\
+&-\frac{1}{2}\frac{1}{c^2}\frac{\sqrt{\lambda^2-1}}{\sqrt{1-\kappa^2}}\frac{\lambda}{(\lambda^2-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)\\
+&+U_{motor}\kappa^2\frac{\sqrt{1-\kappa^2}\sqrt{\lambda^2-1}}{(\lambda^2-\kappa^2)^{3/2}}\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]\\
+&+\frac{1}{2}\frac{1}{c^2}\frac{\kappa(\lambda-2\lambda_0)}{(\lambda^2-\kappa^2)^{3/2}}\frac{\sqrt{1-\kappa^2}}{\sqrt{\lambda^2-1}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)
+\end{aligned}
+\end{equation}
+Then, everything has been prepared for the calculation of stress:
+\begin{equation}
+\begin{aligned}
+\gv \Pi_{\xi z}&=
+h_\xi\pd{z(\xi,\theta,\phi)}{\xi} \left\{-p+2\mu h_\xi \left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+&+h_\theta\pd{z(\xi,\theta,\phi)}{\theta} \mu \left\{h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]+h_\xi\left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+\end{aligned}
+\end{equation}
+As for the resistant force, it could be obtained by a surface integral of stress:
+\begin{equation}
+F_z=\iint_S\gv \Pi_{\xi z}(\xi_0,\theta)\mathrm{d}S=\int_0^\pi\int_0^{2\pi} \gv \Pi_{\xi z}(\xi_0,\theta)\frac{\mathrm{d}\theta\mathrm{d}\phi}{h_\theta h_\phi}=2\pi\int_0^\pi \left.\frac{\gv \Pi_{\xi z}(\xi,\theta)}{h_\theta h_\phi}\right|_{\xi=\xi_0}\mathrm{d}\theta
+\end{equation}
+Remark:
+I originally plan to solve the exact form of resistance force, then the self-phoresis speed of motor. However, it's pretty lengthy and I can't expect anything worthwhile to finish this step. So I will stay at current progress.
+\subsection{Motor Speed}
+\subsubsection{Approximate Calculation}
+The motor speed is given by force balance $F_z=0$, i.e.
+\begin{equation}
+-\frac{8\pi\mu c U_{motor}}{(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)-\lambda_0}-\frac{4\pi\mu}{c}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(1-\kappa^2)^{3/2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\mu_{motor}E_\theta(\lambda_0,\kappa)
+\end{equation}
+which gives that
+\begin{equation}
+U_{motor}=-\frac{1}{2}\frac{1}{c^2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(1-\kappa^2)^{3/2}}\frac{\sigma_2}{\lambda^2_0-1}\mu_{motor}E_\theta(\lambda_0,\kappa)
+\end{equation}
+Above approximate result is not accurate. It's clear that at least the variable $\kappa$ should be wiped out during surface integration of fluid stress tensor. However, it qualitatively shows that the motor speed is proportional to tangential component of electrical field at motor surface and mobility and has complicated dependence upon motor shape which is included in quantities $c$ and $\lambda_0$.
+\section{Summary of Hydrodynamic Part}
+Finally, the hydrodynamic part has been totally solved till now. I collect some results here for reference.
+\subsection{Stream Function}
+\begin{equation}
+\begin{aligned}
+\varphi&=-\frac{1}{2}U_{motor}\tilde{\omega}^2\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]-\frac{1}{2}\frac{\sqrt{\lambda_0^2-\kappa^2}}{(\lambda_0^2-1)\sqrt{1-\kappa^2}}\frac{\sigma_2}{\sigma_1}(\lambda-2\lambda_0)\mu_{motor}E_\theta(\lambda_0,\kappa)
+\end{aligned}
+\end{equation}
+\subsection{Velocity Field}
+\begin{equation}
+\left\{
+\begin{aligned}
+v_\xi&=\frac{U_{motor}\kappa\sqrt{\lambda^2-1}}{\sqrt{\lambda^2-\kappa^2}}\left[\frac{\frac{\lambda}{\lambda^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda)}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right]+\frac{1}{2}\frac{\lambda-2\lambda_0}{c^2\sqrt{\lambda^2-1}\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n\mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime}(\kappa)\\
+v_\theta&=-\frac{U_{motor}\sqrt{1-\kappa^2}}{2\sqrt{\lambda^2-\kappa^2}}\left\{\frac{1-\frac{\lambda_0^2+1}{\lambda_0^2-1}\left[2\lambda\mathrm{arccoth}(\lambda)-1\right]}{\frac{\lambda_0}{\lambda_0^2-1}-\frac{\lambda_0^2+1}{\lambda_0^2-1}\mathrm{arccoth}(\lambda_0)}\right\}+\frac{1}{2}\frac{1}{c^2\sqrt{1-\kappa^2}\sqrt{\lambda^2-\kappa^2}}\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^\prime(\kappa)
+\end{aligned}
+\right.
+\end{equation}
+\subsection{Pressure}
+\begin{equation}
+\begin{aligned}
+p(\lambda,\kappa)&=\frac{\mu}{c}U_{motor}\frac{2\kappa}{\lambda^2-\kappa^2}\frac{1}{\lambda_0-(\lambda_0^2+1)\mathrm{arccoth}(\lambda_0)}\\
+&+\frac{\mu}{c}
+\left[-\frac{1}{2}\frac{\kappa}{\lambda^2-\kappa^2}+\frac{\lambda_0\lambda}{\kappa(\lambda^2-\kappa^2)}-\frac{\lambda_0\mathrm{arccoth}(\frac{\lambda}{\kappa})}{\kappa^2}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime}(\kappa)\\
+&-\frac{\mu}{c}\frac{1}{2}
+\left[\frac{1}{2}\ln \frac{\lambda^2-1}{\lambda^2-\kappa^2}+\lambda_0\ln\frac{\lambda+1}{\lambda-1}-\frac{\lambda_0\ln\frac{\lambda+\kappa}{\lambda-\kappa}}{\kappa}\right]
+\frac{1}{\lambda_0^2-1}\frac{\sigma_2}{\sigma_1}\frac{\mu_{motor}}{c^3}\sum_{n=0}^\infty B_n \mathscr{Q}_n(\lambda_0)\mathscr{P}_n^{\prime\prime\prime\prime}(\kappa)\\
+\end{aligned}
+\end{equation}
+\subsection{Fluid Stress and Resistance Force}
+\begin{equation}
+\begin{aligned}
+\gv \Pi_\xi=\gv \Pi \cdot \uv i_\xi&=
+\uv i_\xi \left\{-p+2\mu h_\xi \left[\pd{v_\xi}{\xi}+h_\theta v_\theta \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}\\
+&+\uv i_\theta \mu \left\{h_\theta\left[\pd{v_\xi}{\theta}-h_\xi v_\theta \pd{}{\xi}\left(\frac{1}{h_\theta}\right)\right]+h_\xi\left[\pd{v_\theta}{\xi}-h_\theta v_\xi \pd{}{\theta}\left(\frac{1}{h_\xi}\right)\right]\right\}
+\end{aligned}
+\end{equation}
+\begin{equation}
+F_z=\iint_S\gv \Pi_{\xi z}(\xi_0,\theta)\mathrm{d}S=\int_0^\pi\int_0^{2\pi} \gv \Pi_{\xi z}(\xi_0,\theta)\frac{\mathrm{d}\theta\mathrm{d}\phi}{h_\theta h_\phi}=2\pi\int_0^\pi \left.\frac{\gv \Pi_{\xi z}(\xi,\theta)}{h_\theta h_\phi}\right|_{\xi=\xi_0}\mathrm{d}\theta
+\end{equation}
+\section{A Few Words}
+When I nearly finish this work, I feel I did a stupid thing. I indeed solved the motion of spheroidal active motion in free space. However, the exact form of self-phoresis speed is very lengthy and would be a nightmare to write down. Nobody will use this expression to do calculation. However, it at least helps me practice my knowledge about some methods of mathematics and physics, fluid mechanics and differential geometry. Now, I finished my winter vacation exercise.
+\labday{Tuesday, 21 February, 2017}
+\experiment{Paper000022}
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
