@@ -2413,6 +2413,402 @@ F_z=\iint_S\gv \Pi_{\xi z}(\xi_0,\theta)\mathrm{d}S=\int_0^\pi\int_0^{2\pi} \gv 
 \end{equation}
 \section{A Few Words}
 When I nearly finish this work, I feel I did a stupid thing. I indeed solved the motion of spheroidal active motion in free space. However, the exact form of self-phoresis speed is very lengthy and would be a nightmare to write down. Nobody will use this expression to do calculation. However, it at least helps me practice my knowledge about some methods of mathematics and physics, fluid mechanics and differential geometry. Now, I finished my winter vacation exercise.
+\labday{Saturday, 11 March, 2017}
+\experiment{Report 3 - Topic Report From Feb. 21, 2017 to Mar. 10, 2017}
+\section{Introduction}
+Because I solved all governing equations outside the electrical double layer in my winter vacation report, I assigned this report to address some problems which I omitted in last report. 
+\section{Relation Between Surface Flux and Outer Electrical Field}
+I chose constant electrical field at motor surface as boundary conditions when I solved electrostatic part in last report. I will clarify the reason to do this. The main reference of this question is \emph{Catalytically driven colloidal patterning and transport}\cite{Kline2006}.
+\subsection{General Description}
+If we put a charged object into electrolyte, by Gouy-Chapman theory which is established by solving Poisson-Boltzmann equation, an electrical double layer(EDL) will established around this charged object. The characteristic scale of EDL is given by Debye length and the characteristic potential drop across EDL is given by zeta potential. However, this theory is based on the assumption of equilibrium state. As for the active motor case, there are chemical reactions occur around the motor surface which makes the assumption of equilibrium invalid. Since that, we have to solve the distribution of ions and electrostatic potential via Poisson equation of electrostatic and conversation of ions. These two equations are coupled together and difficult to solve. \cite{Kline2006} proposed to solved them via perturbation method which found a relation between motor surface flux and electrical field at outer edge of EDL. This is the direct evidence to specify a constant electrical field as boundary condition when I solved Laplace equation outside EDL region.
+\subsection{Governing Equation}
+Nernst-Planck equation:
+\begin{equation}
+\v J_i = -D_i\grad n_i + z_i e n_i \v E \mu_i +\v v n_i
+\end{equation}
+In the right hand side, the first term is the diffusion term, second term is migration term caused by electrical field, third term is advection term caused by the motion of fluid.\\
+Assume Péclet number $\mathrm{Pe}=\frac{aU}{D}\ll 1$, then the importance of advection is small compared with diffusion. Then, the third term, advection term, could be ignored. Thus,
+\begin{equation}
+\v J_i \approx -D_i\grad n_i + z_i e n_i \v E \mu_i=-D_i\grad n_i - \frac{z_i e D_i n_i}{kT}\grad{\psi}
+\end{equation}
+Besides, by the conservation of ions and assume the condition of steady state, then
+\begin{equation}\label{eqn_ions}
+\div \v J_i =0=\div\left[-D_i\grad n_i - \frac{z_i e D_i n_i}{kT}\grad{\psi}\right]
+\end{equation}
+The electrostatic aspect is given by Poisson equation:
+\begin{equation}\label{eqn_Poisson}
+\nabla^2 \psi = - \frac{\sum_i z_i e n_i}{\epsilon}
+\end{equation}
+The distribution of ions $n_i$ and electrostatic potential $\psi$ is given by solving \ref{eqn_ions} and \ref{eqn_Poisson} simultaneously.
+\subsection{Boundary Conditions}
+Before starting the perturbation calculation, let's clarify the boundary conditions involved in this system. I'll take bimetallic motor as illustration.
+\subsubsection{Motor Surface}
+For the bimetallic motor, both parts which are coated by different catalysts are commonly assumed electrically connected. Thus, the whole motor surface is assumed as an equipotential body, i.e.
+\begin{equation}
+\psi|_{r=surface}=\psi_0
+\end{equation}
+As for the flux of positive ions, for convenience, I assume a uniform constant chemical reaction flux around motor surface, i.e.
+\begin{equation}
+\v J_+|_{r=surface_\alpha}=J_\alpha \uv n
+\end{equation}
+where $\alpha$ could be either of coated surface and $\uv n$ is external unit normal vector.\\
+Depend on the chemical reactions involved during self-electrophoresis, there does not have chemical reactions which involves negative ions in this bimetallic motor system. Thus,
+\begin{equation}
+\v J_-|_{r=surface}=0
+\end{equation}
+\subsubsection{Outer Edge of EDL}
+As for the boundary conditions at outer edge of EDL, the equilibrium could be assumed at this boundary, i.e.
+\begin{equation}
+\begin{aligned}
+n_+|_{r\to\infty}&=n_+^0\\
+n_-|_{r\to\infty}&=n_-^0
+\end{aligned}
+\end{equation}
+For convenience, I will only consider symmetrical electrolyte. Then, 
+\begin{equation}
+n_+^0=n_-^0=n_0
+\end{equation}
+and denote the valence of both positive and negative ions as
+\begin{equation}
+z^+=z^-=Z
+\end{equation}
+The boundary condition for electrostatic part at outer edge of EDL is pretty tricky. I still not very sure about it. I will discuss it later.
+\subsection{Unperturbed Solution}
+As the standard procedure of perturbation method, let's calculate unperturbed solution firstly. In this case, assume there is not chemical reaction caused by active motor surface and whole system could reach equilibrium within EDL. Besides, because of the symmetry of system, the most significant variations of quantities should occur along normal direction of motor surface. Thus,
+\begin{equation}
+\begin{aligned}
+\nabla^2\psi&\approx \dd{\psi}{z}\\
+\grad{n_i}&\approx \d{n_i}{z}\uv i_z\\
+\grad{\psi}&\approx \d{\psi}{z}\uv i_z
+\end{aligned}
+\end{equation}
+Then, the governing equations in unperturbed case could be reduced as:
+\begin{equation}
+\left\{
+\begin{aligned}
+\dd{\psi}{z}&=-\frac{eZ n_+}{\epsilon}+\frac{eZn_-}{\epsilon}\\
+\v J_+=0&=-D_+\d{n_+}{z}-\frac{Z e n_+ D_+}{kT}\d{\psi}{z}\\
+\v J_-=0&=-D_-\d{n_-}{z}+\frac{Z e n_- D_-}{kT}\d{\psi}{z}
+\end{aligned}
+\right.
+\end{equation}
+Solve above equations could obtain that ions' distribution is simply Boltzmann distribution, i.e.
+\begin{equation}
+\left\{
+\begin{aligned}
+n^+&=n_0e^{-\frac{Ze}{kT}\psi}\\
+n^-&=n_0e^{\frac{Ze}{kT}\psi}
+\end{aligned}
+\right.
+\end{equation}
+Plugging ions' distribution back into Poisson equation, then
+\begin{equation}
+\dd{\psi}{z}=\frac{2eZn_0}{\epsilon}\sinh\left(\frac{Z e}{kT}\psi\right)
+\end{equation}
+Common manipulation on above nonlinear equation is to assume not too strong electrical potential then linearize above equation. The result will be the in exponential form and characteristic length is given by Debye length $\kappa^2=\frac{2Z^2e^2n_0}{\epsilon k T}$.
+\subsection{First Order Perturbation}
+With unperturbed solution prepared, let's take the effect caused by motor surface reaction into account and assume the caused changes are small. Therefore, expand quantities up to first order perturbation, then:
+\begin{equation}
+\left\{
+\begin{aligned}
+\psi&=\psi^{(0)}+\psi^{(1)}\\
+n_+&=n_+^{(0)}+n_+^{(1)}\\
+n_-&=n_-^{(0)}+n_-^{(1)}
+\end{aligned}
+\right.
+\end{equation}
+Note the original governing equations are
+\begin{equation}
+\left\{
+\begin{aligned}
+\dd{\psi}{z}&=-\frac{eZ n_+}{\epsilon}+\frac{eZn_-}{\epsilon}\\
+\v J_+&=-D_+\d{n_+}{z}-\frac{Z e n_+ D_+}{kT}\d{\psi}{z}\\
+\v J_-&=-D_-\d{n_-}{z}+\frac{Z e n_- D_-}{kT}\d{\psi}{z}
+\end{aligned}
+\right.
+\end{equation}
+Ignore any terms higher than first order and collect first order term, then
+\begin{equation}
+\left\{
+\begin{aligned}
+\dd{\psi^{(1)}}{z}&=-\frac{eZ n_+^{(1)}}{\epsilon}+\frac{eZ n_-^{(1)}}{\epsilon}\\
+J_+&=-D_+\d{n_+^{(1)}}{z}-\frac{ZeD_+}{kT}n_+^{(0)}\d{\psi^{(1)}}{z}-\frac{Z e D_+}{kT}n_+^{(1)}\d{\psi^{(0)}}{z}\\
+J_-&=-D_-\d{n_-^{(1)}}{z}+\frac{ZeD_-}{kT}n_-^{(0)}\d{\psi^{(1)}}{z}+\frac{Z e D_-}{kT}n_-^{(1)}\d{\psi^{(0)}}{z}
+\end{aligned}
+\right.
+\end{equation}
+Above equations are coupled together and nonlinear, thus it's difficult to solve them directly. In order to extract some useful relations from it, let's rearrange above equations:
+\begin{equation}
+\left\{
+\begin{aligned}
+\dd{\psi^{(1)}}{z}&=-\frac{eZ n_+^{(1)}}{\epsilon}+\frac{eZ n_-^{(1)}}{\epsilon}\\
+J_+&=-D_+\d{n_+^{(1)}}{z}-\frac{ZeD_+}{kT}\left[n_+^{(0)}\d{(\psi^{(0)}+\psi^{(1)})}{z}+(n_+^{(1)}-n_+^{(0)})\d{\psi^{(0)}}{z}\right]\\
+J_-&=-D_-\d{n_-^{(1)}}{z}+\frac{ZeD_-}{kT}\left[n_-^{(0)}\d{(\psi^{(0)}+\psi^{(1)})}{z}+(n_-^{(1)}-n_-^{(0)})\d{\psi^{(0)}}{z}\right]
+\end{aligned}
+\right.
+\end{equation}
+Note that both $\psi^{(0)}\sim e^{-\frac{z}{\kappa}}$ and $\d{\psi^{(0)}}{z}\sim e^{-\frac{z}{\kappa}}$ decay exponentially. Then, we expect
+\begin{equation}
+\left.\d{\psi^{(0)}}{z}\right|_{r\to\infty}\to 0
+\end{equation}
+Therefore,
+\begin{equation}
+\begin{aligned}
+J_+|_{r\to\infty}&=-D_+\left.\d{n_+^{(1)}}{z}\right|_{r\to\infty}-\frac{ZeD_+}{kT}n_0\left.\d{(\psi^{(0)}+\psi^{(1)})}{z}\right|_{r\to\infty}\\
+J_-|_{r\to\infty}&=-D_-\left.\d{n_-^{(1)}}{z}\right|_{r\to\infty}+\frac{ZeD_-}{kT}n_0\left.\d{(\psi^{(0)}+\psi^{(1)})}{z}\right|_{r\to\infty}
+\end{aligned}
+\end{equation}
+Denote that
+\begin{equation}
+-\left.\d{(\psi^{(0)}+\psi^{(1)})}{z}\right|_{r\to\infty}=E_z|_{r\to\infty}
+\end{equation}
+Then,
+\begin{equation}
+\begin{aligned}
+J_+|_{r\to\infty}&=-D_+\left.\d{n_+^{(1)}}{z}\right|_{r\to\infty}+\frac{ZeD_+}{kT}n_0E_z|_{r\to\infty}\\
+J_-|_{r\to\infty}&=-D_-\left.\d{n_-^{(1)}}{z}\right|_{r\to\infty}-\frac{ZeD_-}{kT}n_0E_z|_{r\to\infty}
+\end{aligned}
+\end{equation}
+----------------------------------------------------------------------------------------------------------\\
+Physically, we should expect the distribution of ions reach equilibrium outside the EDL, i.e.
+\begin{equation}
+\begin{aligned}
+n_+|_{r\to\infty}&=n_+^{(0)}+n_+^{(1)}\to n_0\\
+n_-|_{r\to\infty}&=n_-^{(0)}+n_-^{(1)}\to n_0
+\end{aligned}
+\end{equation}
+It means that
+\begin{equation}
+\begin{aligned}
+n_+^{(1)}|_{r\to\infty}\to 0\\
+n_-^{(1)}|_{r\to\infty}\to 0
+\end{aligned}
+\end{equation}
+and
+\begin{equation}
+\begin{aligned}
+\left.\d{n_+^{(1)}}{z}\right|_{r\to\infty}\to 0\\
+\left.\d{n_-^{(1)}}{z}\right|_{r\to\infty}\to 0
+\end{aligned}
+\end{equation}
+Thus,
+\begin{equation}
+\begin{aligned}
+J_+|_{r\to\infty}&=\frac{ZeD_+}{kT}n_0E_z|_{r\to\infty}\\
+J_-|_{r\to\infty}&=-\frac{ZeD_-}{kT}n_0E_z|_{r\to\infty}
+\end{aligned}
+\end{equation}
+Above equations are purely written at the outer edge of EDL. However, I want the relation between $E_z|_{r\to\infty}$ and $J_+|_{r=surface}$. I need additional assumptions to help me achieve this purpose.\\
+----------------------------------------------------------------------------------------------------------\\
+Note that
+\begin{equation}
+\dd{\psi^{(1)}}{z}=\frac{eZ }{\epsilon}(n_-^{(1)}-n_+^{(1)})
+\end{equation}
+Because of the neutrality of solutions outside EDL, we expect 
+\begin{equation}
+n_-^{(1)}|_{r\to\infty}\approx n_+^{(1)}|_{r\to\infty}
+\end{equation}
+Then, we expect the normal component of electrical field at outer edge of EDL is constant:
+\begin{equation}
+\left.\dd{\psi^{(1)}}{z}\right|_{r\to\infty}=\left.\dd{(\psi^{(0)}+\psi^{(1)})}{z}\right|_{r\to\infty}=-\left.\d{E_z}{z}\right|_{r\to\infty}\approx 0
+\end{equation}
+Combined with previous results, we have
+\begin{equation}
+\frac{J_+|_{r\to\infty}}{D_+}-\frac{J_-|_{r\to\infty}}{D_-}=2\frac{Ze}{kT}n_0E_z|_{r\to\infty}
+\end{equation}
+Note that there is no flux of negative ions, then
+\begin{equation}
+J_+|_{r\to\infty}=2\frac{Ze}{kT}D_+n_0E_z|_{r\to\infty}
+\end{equation}
+Above equation is written at the outer edge of EDL, while I want to relate $E_z|_{r\to\infty}$ with $J_+|_{r=surface}$. I need additional assumptions. Here comes the thin EDL approximation. I assume that the thickness of EDL is very small compared with the typical length of active motor. Then, it's reasonable to assume that
+\begin{equation}
+J_+|_{r\to\infty}\approx J_+|_{r=surface}
+\end{equation}
+within EDL region. This gives us a relation:
+\begin{equation}
+E_z|_{r\to\infty}=\frac{kT}{2Ze D_+ n_0}J_+|_{r=surface}
+\end{equation}
+Above relation connects the normal component of electrical field and surface motor flux. However, there are several inconsistencies with model established for bulk solution region. I think this result maybe be questionable in some cases. I will try to clarify related problems in next section.
+\section{Will ions flux change the distribution of ions at equilibrium and break the neutrality outside EDL?}
+\subsection{Motivation}
+When I try to derive the relation between electric field at outer edge of EDL and surface flux, I asked myself a question: how could the whole system preserve electro-neutrality when there exist constant flux across the outer edge of EDL? How much the ions' distribution(with ions' flux) will deviate from original Boltzmann's distribution at equilibrium(without ions flux)? I must check the neutrality still hold outside the EDL to make sure my calculation at outer region has solid theoretical foundation.\\
+Fortunately, when I read Tso-Yi Chiang's Phd Thesis\cite{Chiang2014}, I found the paper written by Prieve\cite{Prieve200467} named \emph{Changes in zeta potential caused by a dc electric current for thin double layers}. This paper answered my question in a plane electrode system. I will derive similar result in my concerned system in following sections. However, the results are really surprising and I can't wait to derive. Let me state them here first:\\
+\begin{enumerate}
+\item Within the EDL, ions still obey the form of Boltzmann's distribution as long as normalized related quantities appropriately;
+\item Outside the EDL, the neutrality still hold. If only positive ions flux exists or negative ions flux exists, ions still obey the form of Boltzmann's distribution. If both positive and negative ions exist, ions' distribution will deviate from Boltzmann's distribution by a factor, which is given by flux strength, at the exponent;
+\item Ions flux will change the Debye length;
+\item Ions flux will change the zeta potential across diffuse layer and potential drop across Stern layer. 
+\end{enumerate}
+\subsection{Theory}
+\subsubsection{Governing Equation}
+Because of the existence of ions flux, the whole system is not in equilibrium, Nernst-Planck equation could be applied for this situation:
+\begin{equation}
+\v J_i=-D_i\grad c_i - \frac{z_i e D_i c_i}{kT}\grad{\psi}+ c_i \v v
+\end{equation}
+Ignoring the convection term, then
+\begin{equation}
+\v J_i \approx -D_i\grad c_i - \frac{z_i e D_i c_i}{kT}\grad{\psi}
+\end{equation}
+As for the electrostatic aspect, Poisson's equation is used:
+\begin{equation}
+\nabla^2 \psi = - \frac{\sum_i z_i e c_i}{\epsilon}
+\end{equation}
+Therefore, whole governing equations are:
+\begin{equation}
+\left\{
+\begin{aligned}
+\v J_i &= -D_i\grad c_i - \frac{z_i e D_i c_i}{kT}\grad{\psi}\\
+\nabla^2 \psi &= - \frac{\sum_i z_i e c_i}{\epsilon}
+\end{aligned}
+\right.
+\end{equation}
+Because of the specific symmetry of my concerned motor system, we have
+\begin{equation}
+\begin{aligned}
+\v J_i&=J_i^n \uv n +J_i^t \uv t\\
+\grad c_i&=\pd{c_i}{n}\uv n + \pd{c_i}{t}\uv t\\
+\grad \psi&=\pd{\psi}{n}\uv n + \pd{\psi}{t}\uv t
+\end{aligned}
+\end{equation}
+Also note that we assume infinitesimal thin EDL, i.e.
+\begin{equation}
+\kappa \ll l
+\end{equation}
+where $\kappa$ is the Deybe length and $l$ is the characteristic length of system. Then, assume that
+\begin{equation}
+\begin{aligned}
+\abs{J_i^t}&\ll \abs{J_i^n}\\
+\abs{\pd{c_i}{t}}&\ll\abs{\pd{c_i}{n}}\\
+\abs{\pd{\psi}{t}}&\ll\abs{\pd{\psi}{n}}\\
+\abs{\pdd{\psi}{t}}&\ll\abs{\pdd{\psi}{n}}
+\end{aligned}
+\end{equation}
+Then, as zeroth order approximation, original governing equations could be reduced as
+\begin{equation}
+\left\{
+\begin{aligned}
+J_i^n &= -D_i \pd{c_i}{n}-\frac{z_i e D_i n_i}{kT}\pd{\psi}{n}\\
+\pdd{\psi}{n}&=-\frac{\sum_i z_i e c_i}{\epsilon}
+\end{aligned}
+\right.
+\end{equation}
+Finally, for simplicity, consider the symmetrical binary electrolyte case, set $z_+=-z_-=z$, then
+\begin{equation}
+\left\{
+\begin{aligned}
+J_+ &=-D_+ \pd{c_+}{n}-\frac{zeD_+c_+}{kT}\pd{\psi}{n}\\
+J_-&=-D_-\pd{c_-}{n}+\frac{zeD_-c_-}{kT}\pd{\psi}{n}\\
+\pdd{\psi}{n}&=-\frac{zec_+}{\epsilon}+\frac{zen_-}{\epsilon}
+\end{aligned}
+\right.
+\end{equation}
+For clarity, I rewrite above equations as following:
+\begin{equation}
+\left\{
+\begin{aligned}
+-\frac{J_+}{D_+}&=\pd{c_+}{n}+c_+\pd{\Psi}{n}\\
+-\frac{J_-}{D_-}&=\pd{c_-}{n}-c_-\pd{\Psi}{n}\\
+\pdd{\Psi}{n}&=-\frac{\kappa^2}{2c_0}(c_+-c_-)
+\end{aligned}
+\right.
+\end{equation}
+where $\Psi=\frac{ze}{kT}\psi$ and $\kappa^2=\frac{2z^2e^2 c_0}{\epsilon kT}$
+\subsubsection{Nondimensional variables}
+Convert above governing equations into nondimensional variables with following transformation:
+\begin{equation}
+\begin{aligned}
+\tilde{J}_\pm&=\frac{J_\pm l}{2 c_0 D_\pm}\\
+C&=\frac{c_++c_-}{2n_0}\\
+\rho&=\frac{c_+-c_-}{2n_0}\\
+\tilde{n}&=\frac{n}{l}
+\end{aligned}
+\end{equation}
+Then,
+\begin{equation}
+\left\{
+\begin{aligned}
+-\tilde{J}_+-\tilde{J}_-&=\pd{C}{\tilde{n}}+\rho\pd{\Psi}{\tilde{n}}\\
+-\tilde{J}_++\tilde{J}_-&=\pd{\rho}{\tilde{n}}+C\pd{\Psi}{\tilde{n}}\\
+\delta^2\pdd{\Psi}{\tilde{n}}&=-\rho
+\end{aligned}
+\right.
+\end{equation}
+where $\delta=(\kappa l)^{-1}$.
+Then, we could derive that
+\begin{equation}
+C(\tilde n)=C_0 - (\tilde J_+ + \tilde J_-)\tilde n +\frac{\delta^2}{2}\left(\pd{\psi}{\tilde n}\right)^2
+\end{equation}
+\begin{equation}
+\tilde J_+ -\tilde J_-=\delta^2\left[\frac{\partial^3\Psi}{\partial \tilde n ^3}-\frac{1}{2}\left(\pd{\Psi}{\tilde n}\right)^3\right]+\left[\left(\tilde J_+ + \tilde J_-\right)\tilde n -C_0\right]\pd{\Psi}{\tilde n}
+\end{equation}
+\subsubsection{Outer Solution}
+Physically, we expect that $\abs{\pd{\psi}{\tilde n}}$ is finite and very small. Also note that $\delta \to 0$ by the thin EDL approximation, thus the concentration profile outside EDL is given by
+\begin{equation}
+C^o(\tilde n)=C_0-(\tilde J_+ + \tilde J_-)\tilde n
+\end{equation}
+Similarly, the potential profile outside EDL is given by
+\begin{equation}
+\Psi^o(\tilde n)=\frac{\tilde J_+ - \tilde J_-}{\tilde J_+ + \tilde J_-} \ln \left| (\tilde J_+ + \tilde J_-)\tilde n -C_0\right| + \Psi_0
+\end{equation}
+To determine the integration constants $C_0$ and $\Psi_0$, we need specify boundary conditions. For convenience, choose the place which is away from motor surface by a characteristic length $l$ as origin. Then,
+\begin{equation}
+C^o(0)=1, \Psi^o(0)=0
+\end{equation}
+It then gives that
+\begin{equation}
+\left\{
+\begin{aligned}
+C^o(\tilde n)&=1-(\tilde J_+ + \tilde J_-)\tilde n\\
+\Psi^o(\tilde n)&=\frac{\tilde J_+ - \tilde J_-}{\tilde J_+ + \tilde J_-} \ln \left[1-(\tilde J_+ + \tilde J_-)\tilde n\right]
+\end{aligned}
+\right.
+\end{equation}
+Note that above equations are only valid outside the EDL and not too far away from the motor surface. I would call this region as intermediate zone which should be the order of characteristic length $l$ (According to my numerical simulation result, I think it should be smaller than motor radius but much larger than $\kappa$). It's in this region where concentration profile is linear and flux is constant and almost unidirectional. The most important implication is that the electrolyte in this region is still neutral. Although the existence of ions flux, electrolyte will preserve electroneutrality outside EDL.
+\subsubsection{Inner Solution}
+The next question is how ions flux will affect the ions distribution within EDL? It will be answered by solving original equations within EDL and match the result with outer solution. In current choice of coordinate origin, the outer edge of EDL is at $\tilde n \to -1$. Do following transformation:
+\begin{equation}
+\xi^\prime=\frac{\tilde n +1}{\delta}
+\end{equation}
+Then, we have
+\begin{equation}
+\delta(\tilde J_+ - \tilde J_-)=\frac{\partial^3 \Psi}{\partial \xi^{\prime3}}-\frac{1}{2}\left(\pd{\Psi}{\xi^\prime}\right)^3+\left[(\tilde J_+ + \tilde J_-)(\delta\xi^\prime -1)-C_0\right]\pd{\Psi}{\xi^\prime}
+\end{equation}
+Apply thin EDL approximation, i.e. $\delta \to 0$, above equation becomes
+\begin{equation}
+0=\frac{\partial^3 \Psi}{\partial \xi^{\prime3}}-\frac{1}{2}\left(\pd{\Psi}{\xi^\prime}\right)^3-\left[(\tilde J_+ + \tilde J_-+C_0\right]\pd{\Psi}{\xi^\prime}
+\end{equation}
+Similarly,
+\begin{equation}
+C(\xi^\prime)=C_0-(\tilde J_+ + \tilde J_-)(-1 + \epsilon \xi^\prime) + \frac{1}{2}\left(\pd{\Psi}{\xi^\prime}\right)^2
+\end{equation}
+Set $\delta \to 0$, then
+\begin{equation}
+C(\xi^\prime)=C_0+\tilde J_+ + \tilde J_- + \frac{1}{2}\left(\pd{\Psi}{\xi^\prime}\right)^2
+\end{equation}
+For a more tidy expression, do following transformation:
+\begin{equation}
+\xi=\xi^\prime \sqrt{C_0+\tilde J_+ + \tilde J_-}
+\end{equation}
+Then,
+\begin{equation}
+0=\frac{\partial^3 \Psi}{\partial \xi^{3}}-\frac{1}{2}\left(\pd{\Psi}{\xi}\right)^3-\pd{\Psi}{\xi}
+\end{equation}
+Above differential equation has a particular solution:
+\begin{equation}
+\Psi^i(\xi)=A+4 \tanh^{-1}(B e^{-\xi})
+\end{equation}
+The constants $A$ and $B$ are given by matching with outer solution:
+\begin{equation}
+\Psi^i(\infty)=A=\Psi^o(-1)=\frac{\tilde J_+ - \tilde J_-}{\tilde J_+ + \tilde J_-}\ln (1+J_++J_-)
+\end{equation}
+\begin{equation}
+B=\tanh \frac{\zeta}{4}=\tanh \frac{\Psi^i(0)-\Psi^i(\infty)}{4}
+\end{equation}
+As the potential profile is determined, we could then solve for the concentration profile within EDL:
+\begin{equation}
+\frac{C^i_{\pm}(\xi)}{1+J_++J_-}=e^{\mp\left[y^i(\xi)-y^i(\infty)\right]}
+\end{equation}
+Where $C^i_\pm$ is the positive(negative) ion concentration. This result is pretty surprising. It shows that ions concentration still obeys the form of Boltzmann distribution with appropriate normalization.
 \labday{Tuesday, 21 February, 2017}
 \experiment{Paper000022}
 %----------------------------------------------------------------------------------------
