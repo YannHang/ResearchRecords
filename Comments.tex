@@ -2874,10 +2874,14 @@ Theoretical prediction of motor speed with respect to motor size is contradicted
 \experiment{Paper000023}
 \labday{Friday, 31 March, 2017}
 When I tried to implement theoretical calculations in Mathematica, it seems that the algorithm implemented by Mathematica to calculate LegendreQ is unstable. Especially for relatively large value and higher order of LegendreQ, correct results should converge to zero while Mathematica gives very large value when x beyond some limiting value. Based on this performance of Mathemeatica, I decide to abandon the utility of Mathematica and implement all calculation manually by MATLAB. To be continued...
-\labday{Wednesday, 5 March 2017}
+\labday{Wednesday, 5 April 2017}
 Finished the basic calculation of electrical potential. I plan to calculate the contour plot of electrical potential to basically check whether my implementation is correct. Currently working on vectorize the function to calculate the electrical potential.
-\labday{Thursday, 6 March 2017}
+\labday{Thursday, 6 April 2017}
 Finished the contour plot of electrical potential. It shows that the electrical potential is not monotonous along the motor surface which I didn't notice before. Following tasks are trying to project results into rectangular coordinates system and calculate the corresponding electrical field.
+\labday{Monday, 10 April 2017}
+Tried to plot the electrical field via matlab build-in gradient function. However, it seems that this gradient function cannot apply directly to my situation. A quick solution is to compute electrical field directly and plot it by quiver function. I guess that will work. The next task is to implement this idea. By the way, I need to act quickly. There is no too much time for me to finish my thesis work. Good luck.
+\labday{Tuesday, 11 April 2017}
+Derived the relation used for transformation unit vectors in prolate spheroidal coordinates into unit vectors in cartesian coordinates. Finished the coding of calculating electrical field. Tomorrow's task is to transform electrical field value into cartesian coordinates and plot the vector field. Be sure to verify the validity of transformation function.
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
