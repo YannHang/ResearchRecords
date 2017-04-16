@@ -2882,8 +2882,10 @@ Finished the contour plot of electrical potential. It shows that the electrical 
 Tried to plot the electrical field via matlab build-in gradient function. However, it seems that this gradient function cannot apply directly to my situation. A quick solution is to compute electrical field directly and plot it by quiver function. I guess that will work. The next task is to implement this idea. By the way, I need to act quickly. There is no too much time for me to finish my thesis work. Good luck.
 \labday{Tuesday, 11 April 2017}
 Derived the relation used for transformation unit vectors in prolate spheroidal coordinates into unit vectors in cartesian coordinates. Finished the coding of calculating electrical field. Tomorrow's task is to transform electrical field value into cartesian coordinates and plot the vector field. Be sure to verify the validity of transformation function.
-\labday{Sunday, 16 April 2017}
+\labday{Saturday, 15 April 2017}
 Finished the functionality of plotting stream function and velocity field. However, the validness of these functions are still unclear. According to the plotting result, it's not very convincing and not easy to interpret. Anyway, I will start to write thesis draft and consider these problems at the same time.
+\labday{Sunday, 16 April 2017}
+After inspecting the detail of programming code, I found that the electrostatic part in velocity field is numerically unstable. Many extra patterns are caused by subtle numerical errors. It seems that the electrical field will diverge at two ends of motor. How to explain these divergence will need more considerations.
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
